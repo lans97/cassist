@@ -1,4 +1,5 @@
 <?php
+echo "Reached HomeController.php";
 
 class HomeController {
     public function index() {
