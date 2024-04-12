@@ -10,4 +10,6 @@ class HomeController {
     }
 }
 
+$homeController = new HomeController();
+$homeController->index();
 ?>
