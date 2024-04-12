@@ -19,5 +19,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /var/www/aws_cicd/
+            cd /var/www/cassist/
             git pull
