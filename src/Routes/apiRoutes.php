@@ -4,7 +4,6 @@ switch ($route) {
         echo '';
         break;
     case 'api/users':
-        echo "test";
         \App\API\Endpoints\handleUsersEndpoint();
         break;
     default:

@@ -1,12 +1,18 @@
 <?php
+
 /**
  * Users CRUD
  */
+
 namespace App\Views\Admin;
 
-
+require_once PROJECT_ROOT . "src/utils/database.service.php";
+$pdo = getPDOConnection();
+$userHandler = new \App\API\Handlers\UsersHandler($pdo);
+$users = $userHandler->getUsers();
 
 ?>
+
 <h1>Users</h1>
 
 <div id="formContainer">
@@ -20,11 +26,23 @@ namespace App\Views\Admin;
             <th>Username</th>
             <th>Mail</th>
             <th>Super User</th>
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th>Created</th>
+            <th>Last Update</th>
+            <th>Actions</th>
         </tr>
     </thead>
 
     <tbody>
+        <?php foreach ($users as $user) { ?>
+            <tr>
+                <th><?= $user['id'] ?></th>
+                <th><?= $user['username'] ?></th>
+                <th><?= $user['mail'] ?></th>
+                <th><?= $user['super_user'] ?></th>
+                <th><?= $user['created_at'] ?></th>
+                <th><?= $user['updated_at'] ?></th>
+                <th><button>Edit</button><button>Delete</button></th>
+            </tr>
+        <?php } ?>
     </tbody>
 </table>

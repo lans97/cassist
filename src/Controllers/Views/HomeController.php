@@ -7,6 +7,3 @@ class HomeController {
         include '../templates/footer.php';
     }
 }
-
-$homeController = new HomeController();
-$homeController->index();
