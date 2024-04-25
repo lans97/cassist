@@ -103,6 +103,10 @@ class UsersHandler {
         return true;
     }
     
+    private function login($data) {
+
+    }
+
     private function hashPassword($password, $salt) {
         $hash = password_hash($password, PASSWORD_BCRYPT, ['salt' => $salt]);
         return $hash;
