@@ -1,11 +1,12 @@
 <?php
 // Define web routes
 switch ($route) {
+    case '':
     case '/':
         // Handle home page request
         echo 'Welcome to the homepage';
         break;
-    case '/about':
+    case 'about':
         // Handle about page request
         echo 'About Us';
         break;

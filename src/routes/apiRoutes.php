@@ -1,9 +1,9 @@
 <?php
 switch ($route) {
-    case '/':
+    case 'api':
         echo '';
         break;
-    case '/users':
+    case 'api/users':
         echo "test";
         \App\API\Endpoints\handleUsersEndpoint();
         break;

@@ -3,21 +3,21 @@
 var_dump($route);
 
 switch ($route) {
-    case '/admin':
+    case 'admin':
         echo 'admin home';
         $controller = new \App\Controller\LoginController();
         $controller->index();
         break;
-    case '/admin/users':
+    case 'admin/users':
         echo 'admin users';
         break;
-    case '/admin/movements':
+    case 'admin/movements':
         echo 'admin movements';
         break;
-    case '/admin/movement-categories':
+    case 'admin/movement-categories':
         echo 'admin movement-categories';
         break;
-    case '/admin/accounts':
+    case 'admin/accounts':
         echo 'admin accounts';
         break;
     default:
