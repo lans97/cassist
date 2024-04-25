@@ -6,7 +6,8 @@ define('PROJECT_ROOT', __DIR__ . '/../');
 
 $basePath = '/';
 $requestedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$route = str_replace($basePath, '', $requestedUrl);
+
+var_dump($requestedUrl);
 
 if (strpos($requestedUrl, '/api') === 0) {
     include PROJECT_ROOT . 'src/routes/apiRoutes.php';

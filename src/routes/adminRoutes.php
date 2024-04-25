@@ -1,8 +1,6 @@
 <?php
 
-var_dump($route);
-
-switch ($route) {
+switch ($requestedUrl) {
     case 'admin':
         echo 'admin home';
         $controller = new App\Controller\LoginController();

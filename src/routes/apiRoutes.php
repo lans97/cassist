@@ -1,5 +1,5 @@
 <?php
-switch ($route) {
+switch ($requestedUrl) {
     case 'api':
         echo '';
         break;
