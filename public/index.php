@@ -8,9 +8,9 @@ $basePath = '/';
 $requestedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $route = str_replace($basePath, '', $requestedUrl);
 
-if (strpos($requestUrl, '/api') === 0) {
+if (strpos($requestedUrl, '/api') === 0) {
     include PROJECT_ROOT . 'src/routes/apiRoutes.php';
-} elseif (strpos($requestUrl, '/admin') === 0) {
+} elseif (strpos($requestedUrl, '/admin') === 0) {
     include PROJECT_ROOT . 'src/routes/adminRoutes.php';
 } else {
     include PROJECT_ROOT . 'src/routes/webRoutes.php';
