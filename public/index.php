@@ -1,22 +1,17 @@
 <?php
 
-$basePath = '/';
-$requestedUrl = $_SERVER['REQUEST_URI'];
-$route = str_replace($basePath, '', $requestedUrl);
+define('PROJECT_ROOT', __DIR__ . '/../');
 
-switch ($route) {
-    case '':
-    case '/':
-    case 'home':
-        include '../controllers/HomeController.php';
-        break;
-    case 'calculator':
-        include '../controllers/CalculatorController.php';
-        break;
-    default:
-        http_response_code(404);
-        include '../errors/404.php';
-        break;
+require_once PROJECT_ROOT . 'routes/webRoutes.php';
+require_once PROJECT_ROOT . 'routes/adminRoutes.php';
+require_once PROJECT_ROOT . 'routes/apiRoutes.php';
+
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+if (strpos($requestUri, '/api/') === 0) {
+    include PROJECT_ROOT . 'routes/apiRoutes.php';
+} elseif (strpos($requestUri, '/admin/') === 0) {
+    include PROJECT_ROOT . 'routes/adminRoutes.php';
+} else {
+    include PROJECT_ROOT . 'routes/webRoutes.php';
 }
-
-?>
