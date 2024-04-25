@@ -1,7 +1,5 @@
 <?php
 
-require_once PROJECT_ROOT . 'config/database.php';
-
 function getPDOConnection() {
   $config = require_once PROJECT_ROOT . 'config/database.php';
   $dbConfig = $config['default'];
