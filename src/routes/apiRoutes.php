@@ -4,6 +4,7 @@ switch ($_SERVER['REQUEST_URI']) {
         echo '';
         break;
     case '/users':
+        echo "test";
         \App\API\Endpoints\handleUsersEndpoint();
         break;
     default:
