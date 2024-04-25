@@ -2,7 +2,12 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+echo "entrypoint<br>";
+
 define('PROJECT_ROOT', __DIR__ . '/../');
+
+echo PROJECT_ROOT;
+echo "<br>";
 
 require_once PROJECT_ROOT . 'routes/webRoutes.php';
 require_once PROJECT_ROOT . 'routes/adminRoutes.php';
