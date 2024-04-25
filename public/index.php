@@ -9,8 +9,6 @@ $requestedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $route = implode("/", array_filter(explode('/', $requestedUrl)));
 
-var_dump($route);
-
 if (strpos($route, 'api') === 0) {
     include PROJECT_ROOT . 'src/Routes/apiRoutes.php';
 } elseif (strpos($route, 'admin') === 0) {

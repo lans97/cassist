@@ -3,7 +3,7 @@
 switch ($route) {
     case 'admin':
         echo 'admin home';
-        $controller = new App\Controllers\Views\Admin\LoginController();
+        $controller = new \App\Controllers\Views\Admin\LoginController();
         $controller->index();
         break;
     case 'admin/users':
