@@ -6,6 +6,8 @@ define('PROJECT_ROOT', __DIR__ . '/../');
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+var_dump($requestUri);
+
 if (strpos($requestUri, '/api') === 0) {
     require_once PROJECT_ROOT . 'src/routes/apiRoutes.php';
 } elseif (strpos($requestUri, '/admin') === 0) {
