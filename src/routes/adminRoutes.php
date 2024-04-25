@@ -1,5 +1,7 @@
 <?php
 
+echo "hi"
+
 switch ($requestUri) {
     case '/admin':
         echo 'admin home';
