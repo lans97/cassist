@@ -6,7 +6,8 @@ define('PROJECT_ROOT', __DIR__ . '/../');
 
 $basePath = '/';
 $requestedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$route = array_filter(explode('/', $requestedUrl), "empty");
+
+$route = array_filter(explode('/', $requestedUrl));
 
 var_dump($route);
 
