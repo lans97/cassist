@@ -1,4 +1,4 @@
-<?php
+<?php namespace App\Controllers\Views;
 
 class HomeController {
     public function index() {

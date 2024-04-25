@@ -1,4 +1,4 @@
-<?php namespace App\Controller;
+<?php namespace App\Controllers\Views\Admin;
 
 class LoginController {
     public function index() {

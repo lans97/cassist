@@ -2,7 +2,8 @@
 switch ($route) {
     case '':
         // Handle home page request
-        echo 'Welcome to the homepage';
+        $controller = new App\Controllers\Views\HomeController();
+        $controller->index();
         break;
     case 'about':
         // Handle about page request
