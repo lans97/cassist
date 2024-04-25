@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS `user` (
     `id` INT AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL UNIQUE,
     `mail` VARCHAR(255) NOT NULL UNIQUE,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS user (
     PRIMARY KEY (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS account (
+CREATE TABLE IF NOT EXISTS `account` (
     `id` INT AUTO_INCREMENT,
     `user` INT NOT NULL,
     `nickname` VARCHAR(255) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS account (
     FOREIGN KEY (`user`) REFERENCES `user`(`id`) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS movement_category (
+CREATE TABLE IF NOT EXISTS `movement_category` (
     `id` INT AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL UNIQUE,
     `user` INT NOT NULL,
@@ -29,11 +29,11 @@ CREATE TABLE IF NOT EXISTS movement_category (
     FOREIGN KEY (`user`) REFERENCES `user`(`id`) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS movement (
+CREATE TABLE IF NOT EXISTS `movement` (
     `id` INT AUTO_INCREMENT,
     `account` INT NOT NULL,
-    `info` VARCHAR(255),
     `category` INT NOT NULL,
+    `info` VARCHAR(255),
     `ammount` DECIMAL(10, 2) NOT NULL,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
