@@ -6,7 +6,7 @@
 
 namespace App\Views\Admin;
 
-require_once PROJECT_ROOT . "src/utils/database.service.php";
+require_once PROJECT_ROOT . "src/Utils/database.service.php";
 $pdo = getPDOConnection();
 $userHandler = new \App\API\Handlers\UsersHandler($pdo);
 $users = $userHandler->getUsers();
