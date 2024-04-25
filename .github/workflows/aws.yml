@@ -21,3 +21,5 @@ jobs:
           script: |
             cd /var/www/cassist/
             git pull
+            composer update
+            composer dump-autoload

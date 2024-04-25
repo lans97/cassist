@@ -1,14 +1,11 @@
 <?php
 
 switch ($_SERVER['REQUEST_URI']) {
-    case '/admin/login':
-        echo 'Welcome to the homepage';
-        break;
     case '/admin':
-        echo 'About Us';
+        $controller = new \App\Controller\LoginController();
+        $controller->index();
         break;
     case '/admin/users':
-        
         break;
     case '/admin/movements':
         break;
