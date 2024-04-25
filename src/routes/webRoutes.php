@@ -1,6 +1,6 @@
 <?php
-switch ($requestedUrl) {
-    case '/':
+switch ($route) {
+    case '':
         // Handle home page request
         echo 'Welcome to the homepage';
         break;

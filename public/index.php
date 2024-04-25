@@ -11,9 +11,9 @@ $route = implode("/", array_filter(explode('/', $requestedUrl)));
 
 var_dump($route);
 
-if (strpos($route, '/api') === 0) {
+if (strpos($route, 'api') === 0) {
     include PROJECT_ROOT . 'src/routes/apiRoutes.php';
-} elseif ($route[0] === 'admin') {
+} elseif (strpos($route, 'admin') === 0) {
     include PROJECT_ROOT . 'src/routes/adminRoutes.php';
 } else {
     include PROJECT_ROOT . 'src/routes/webRoutes.php';
