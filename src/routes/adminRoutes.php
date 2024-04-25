@@ -1,6 +1,6 @@
 <?php
 
-echo "hi";
+var_dump($route);
 
 switch ($route) {
     case '/admin':
