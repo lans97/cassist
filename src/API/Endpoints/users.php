@@ -1,6 +1,6 @@
 <?php namespace App\API\Endpoints;
 
-require_once PROJECT_ROOT . "src/utils/database.service.php";
+require_once PROJECT_ROOT . "src/Utils/database.service.php";
 
 function handleUsersEndpoint() {
     $pdo = getPDOConnection();
