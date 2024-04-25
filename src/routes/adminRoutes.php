@@ -5,7 +5,7 @@ var_dump($route);
 switch ($route) {
     case 'admin':
         echo 'admin home';
-        $controller = new \App\Controller\LoginController();
+        $controller = new App\Controller\LoginController();
         $controller->index();
         break;
     case 'admin/users':
