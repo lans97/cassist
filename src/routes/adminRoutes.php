@@ -1,6 +1,6 @@
 <?php
 
-switch ($_SERVER['REQUEST_URI']) {
+switch ($requestUri) {
     case '/admin':
         echo 'admin home';
         $controller = new \App\Controller\LoginController();
