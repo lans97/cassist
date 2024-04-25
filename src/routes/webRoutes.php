@@ -1,6 +1,6 @@
 <?php
 // Define web routes
-switch ($requestUri) {
+switch ($route) {
     case '/':
         // Handle home page request
         echo 'Welcome to the homepage';

@@ -1,5 +1,5 @@
 <?php
-switch ($requestUri) {
+switch ($route) {
     case '/':
         echo '';
         break;

@@ -1,8 +1,8 @@
 <?php
 
-echo "hi"
+echo "hi";
 
-switch ($requestUri) {
+switch ($route) {
     case '/admin':
         echo 'admin home';
         $controller = new \App\Controller\LoginController();
