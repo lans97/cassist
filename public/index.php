@@ -12,9 +12,9 @@ $route = implode("/", array_filter(explode('/', $requestedUrl)));
 var_dump($route);
 
 if (strpos($route, 'api') === 0) {
-    include PROJECT_ROOT . 'src/routes/apiRoutes.php';
+    include PROJECT_ROOT . 'src/Routes/apiRoutes.php';
 } elseif (strpos($route, 'admin') === 0) {
-    include PROJECT_ROOT . 'src/routes/adminRoutes.php';
+    include PROJECT_ROOT . 'src/Routes/adminRoutes.php';
 } else {
-    include PROJECT_ROOT . 'src/routes/webRoutes.php';
+    include PROJECT_ROOT . 'src/Routes/webRoutes.php';
 }
