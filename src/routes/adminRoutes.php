@@ -1,6 +1,6 @@
 <?php
 
-switch ($requestedUrl) {
+switch ($route[0]) {
     case 'admin':
         echo 'admin home';
         $controller = new App\Controller\LoginController();

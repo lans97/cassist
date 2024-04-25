@@ -7,13 +7,13 @@ define('PROJECT_ROOT', __DIR__ . '/../');
 $basePath = '/';
 $requestedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$route = array_filter(explode('/', $requestedUrl));
+$route = implode("/", array_filter(explode('/', $requestedUrl)));
 
 var_dump($route);
 
-if (strpos($requestedUrl, '/api') === 0) {
+if (strpos($route, '/api') === 0) {
     include PROJECT_ROOT . 'src/routes/apiRoutes.php';
-} elseif (strpos($requestedUrl, '/admin') === 0) {
+} elseif ($route[0] === 'admin') {
     include PROJECT_ROOT . 'src/routes/adminRoutes.php';
 } else {
     include PROJECT_ROOT . 'src/routes/webRoutes.php';
