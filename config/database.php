@@ -4,9 +4,9 @@ return [
   'default' => [
     'driver' => 'mysql',
     'host' => 'localhost',
-    'database' => 'your_database_name',
-    'username' => 'your_username',
-    'password' => 'your_password',
+    'database' => 'proyecto',
+    'username' => 'proyuser',
+    'password' => '04549ce861',
     'charset' => 'utf8mb4',
     'collation' => 'utf8mb4_unicode_ci',
     'prefix' => '',

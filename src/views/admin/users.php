@@ -1,10 +1,15 @@
 <?php
+/**
+ * Users CRUD
+ */
 namespace App\Views\Admin;
-?>
 
+
+
+?>
 <h1>Users</h1>
 
-<div>
+<div id="formContainer">
     <button class="btn btn-primary">Add User</button>
 </div>
 

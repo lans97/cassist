@@ -1,5 +1,7 @@
 <?php namespace App\API\Handlers;
 
+use PDOException;
+
 class UsersHandler {
     private $_pdo;
     
@@ -46,7 +48,8 @@ class UsersHandler {
     }
     
     public function createUser($user) {
-        $saltHash = $this->hashPassword($user['password']);
+        $salt = random_bytes(16);
+        $hash = $this->hashPassword($user['password'], $salt);
         $query = "INSERT INTO user
                     (`username`,
                      `mail`,
@@ -63,8 +66,8 @@ class UsersHandler {
         $stmt->execute([
             ':username' => $user['username'],
             ':mail' => $user['mail'],
-            ':password_hash' => $saltHash['hash'],
-            ':salt' => $saltHash['salt'],
+            ':password_hash' => $hash,
+            ':salt' => $salt,
             ':super_user' => $user['super_user']
         ]);
         
@@ -72,12 +75,37 @@ class UsersHandler {
         return $this->getUser($userId);
     }
     
-    private function hashPassword($password) {
-        $salt = random_bytes(16);
+    public function updateUser($user) {
+        $query = "UPDATE TABLE user
+                    `username` = :username,
+                    `mail` = :mail,
+                    `super_user` = :super_user
+                  WHERE `id` = :id";      
+        $stmt = $this->_pdo->prepare($query);
+        $stmt->execute([
+            ':username' => $user['username'],
+            ':mail' => $user['mail'],
+            ':super_user' => $user['super_user']
+        ]);
+        
+        return $this->getUser($user['id']);
+    }
     
+    public function deleteUser($id) {
+        try {
+            $query = "DELETE FROM user
+                      WHERE `id` = :id";
+            $stmt = $this->_pdo->prepare($query);
+            $stmt->execute([":id" => $id]);
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
+    }
+    
+    private function hashPassword($password, $salt) {
         $hash = password_hash($password, PASSWORD_BCRYPT, ['salt' => $salt]);
-    
-        return array('salt' => $salt, 'hash' => $hash);
+        return $hash;
     }
     
     private function verifyPassword($password, $storedHash, $storedSalt) {
