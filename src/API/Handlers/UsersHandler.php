@@ -103,8 +103,21 @@ class UsersHandler {
         return true;
     }
     
-    private function login($data) {
-
+    public function login($username, $password) {
+        $query = "SELECT
+                    `id`,
+                    `password_hash`,
+                    `salt`
+                  FROM `user`
+                  WHERE `username` = :username";
+        $stmt = $this->_pdo->query($query);
+        $loginData = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $match = $this->verifyPassword($loginData["password"], $loginData["password_hash"], $loginData["salt"]);
+        if ($match) {
+            return $this->getUser($loginData["id"]);
+        } else {
+            return false;
+        }
     }
 
     private function hashPassword($password, $salt) {
