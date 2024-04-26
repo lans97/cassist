@@ -1,8 +1,3 @@
-<?php
-$title = "Login";
-/* TODO */
-?>
-
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="card">
         <div class="card-body">

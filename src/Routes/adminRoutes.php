@@ -2,6 +2,9 @@
 
 switch ($route) {
     case 'admin':
+        header('location: /admin/login', true);
+        exit();
+    case 'admin/login':
         $controller = new \App\Controllers\Views\Admin\LoginController();
         $controller->index();
         break;
