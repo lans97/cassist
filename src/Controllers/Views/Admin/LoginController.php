@@ -2,8 +2,11 @@
 
 class LoginController {
     public function index() {
-        include PROJECT_ROOT . "templates/header.php";
-        include PROJECT_ROOT . "views/admin/login.php";
-        include PROJECT_ROOT . "templates/footer.php";
+        $content = file_get_contents("TODO");
+    }
+    public function handleLogin() {
+
+    }
+    public function handleCalls() {
     }
 }
