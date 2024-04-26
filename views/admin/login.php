@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h2 class="card-title">Admin Login</h2>
-            <form id="loginForm" action="admin/login" method="POST">
+            <form id="loginForm" action="/admin/login" method="POST">
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" class="form-control" required>
