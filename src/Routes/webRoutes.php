@@ -7,6 +7,9 @@ switch ($route) {
     case 'about':
         echo 'About Us';
         break;
+    case 'logout':
+        include PROJECT_ROOT . 'controllers/Logout.php';
+        break;
     default:
         http_response_code(404);
         echo 'Page not found';

@@ -5,3 +5,7 @@
     </a>
   </div>
 </nav>
+
+<form action="logout">
+  <button type="submit">Logout</button>
+</form>

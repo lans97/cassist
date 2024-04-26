@@ -6,3 +6,9 @@
     </a>
   </div>
 </nav>
+
+<div>
+<form action="logout">
+  <button type="submit">Logout</button>
+</form>
+</div>
