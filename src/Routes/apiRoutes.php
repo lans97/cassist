@@ -1,10 +1,12 @@
 <?php
+
 switch ($route) {
     case 'api':
         echo '';
         break;
     case 'api/users':
-        \App\API\Endpoints\handleUsersEndpoint();
+        $usersEndpoint = new \App\API\Endpoints\UsersEndpoint();
+        $usersEndpoint->handleUsersEndpoint();
         break;
     default:
         http_response_code(404);
