@@ -12,4 +12,4 @@
     <button class="btn btn-primary" id="registerBTN">Add</button>
 </form>
 
-<script src="<?= PROJECT_ROOT . "public/js/register.js" ?>"></script>
+<script src="js/register.js"></script>
