@@ -9,7 +9,7 @@ $('#registerForm').submit(function(event) {
         userData[field.name] = field.value;
     });
     
-    alert(userData);
+    console.log(userData);
 
     // Sending data to the PHP script using jQuery
     $.ajax({
