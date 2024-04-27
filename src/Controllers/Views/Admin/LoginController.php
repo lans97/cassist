@@ -18,8 +18,10 @@ class LoginController {
             header("Location: /admin/cruds");
             exit();
         } else {
-            echo "<script>alert('No login')</script>";
-            header("Location: /admin/login");
+            echo '<script>
+                    alert("No login");
+                    window.location.href="admin/login";
+                  </script>';
             exit();
         }
     }

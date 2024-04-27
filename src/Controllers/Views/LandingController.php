@@ -3,7 +3,7 @@
 class LandingController {
     private function index() {
         $title = "Welcome";
-        $content = file_get_contents(PROJECT_ROOT . "views/home.php");
+        $content = file_get_contents(PROJECT_ROOT . "views/landing.php");
         include (PROJECT_ROOT . "templates/base.php");
     }
 
