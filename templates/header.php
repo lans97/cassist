@@ -7,5 +7,5 @@
 </nav>
 
 <form action="logout">
-  <button type="submit">Logout</button>
+  <button type="submit" class="btn btn-secondary">Logout</button>
 </form>

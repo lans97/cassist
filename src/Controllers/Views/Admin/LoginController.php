@@ -15,14 +15,15 @@ class LoginController {
         $login = $handler->login($_POST["username"], $_POST["password"]);
         if ($login) {
             $_SESSION["user-id"] = $login['id'];
-            header("Location: /admin/cruds");
-            exit();
+            echo '<script>
+                    alert("Login!");
+                    window.location.href="/admin/cruds";
+                  </script>';
         } else {
             echo '<script>
                     alert("No login");
                     window.location.href="/admin/login";
                   </script>';
-            exit();
         }
     }
 
