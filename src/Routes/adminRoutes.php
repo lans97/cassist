@@ -8,6 +8,10 @@ switch ($route) {
         $controller = new \App\Controllers\Views\Admin\LoginController();
         $controller->index();
         break;
+    case 'admin/cruds':
+        $controller = new \App\Controllers\Views\Admin\CrudsController();
+        $controller->index();
+        break;
     case 'admin/users':
         $controller = new \App\Controllers\Views\Admin\UsersController();
         $controller->index();
