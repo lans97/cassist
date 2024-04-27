@@ -6,4 +6,19 @@ class UsersController {
         include '../views/admin/users.php';
         include '../templates/footer.php';
     }
+
+    public function handleCalls() {
+        if (isset($_SESSION['user-id'])){
+            header("Location: /admin/cruds");
+            exit();
+        }
+        switch ($_SERVER['REQUEST_METHOD']){
+            case 'GET':
+                $this->index();
+                break;
+            default:
+                http_response_code(405);
+                echo 'Not Allowed';
+        }
+    }
 }

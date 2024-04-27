@@ -1,8 +1,12 @@
 <?php
 switch ($route) {
     case '':
+        $controller = new App\Controllers\Views\LandingController();
+        $controller->handleCalls();
+        break;
+    case 'home':
         $controller = new App\Controllers\Views\HomeController();
-        $controller->index();
+        $controller->handleCalls();
         break;
     case 'about':
         echo 'About Us';

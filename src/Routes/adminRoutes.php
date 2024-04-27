@@ -16,18 +16,18 @@ switch ($route) {
         $controller = new \App\Controllers\Views\Admin\UsersController();
         $controller->handleCalls();
         break;
-    case 'admin/movements':
-        $controller = new \App\Controllers\Views\Admin\MovementsController();
-        $controller->handleCalls();
-        break;
-    case 'admin/movement-categories':
-        $controller = new \App\Controllers\Views\Admin\MovementCategoriesController();
-        $controller->handleCalls();
-        break;
-    case 'admin/accounts':
-        $controller = new \App\Controllers\Views\Admin\AccountsController();
-        $controller->handleCalls();
-        break;
+    // case 'admin/movements':
+    //     $controller = new \App\Controllers\Views\Admin\MovementsController();
+    //     $controller->handleCalls();
+    //     break;
+    // case 'admin/movement-categories':
+    //     $controller = new \App\Controllers\Views\Admin\MovementCategoriesController();
+    //     $controller->handleCalls();
+    //     break;
+    // case 'admin/accounts':
+    //     $controller = new \App\Controllers\Views\Admin\AccountsController();
+    //     $controller->handleCalls();
+    //     break;
     default:
         http_response_code(404);
         echo 'Page not found';

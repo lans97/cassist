@@ -23,6 +23,7 @@ class LoginController {
             exit();
         }
     }
+
     public function handleCalls() {
         if (isset($_SESSION['user-id'])){
             header("Location: /admin/cruds");
@@ -34,6 +35,10 @@ class LoginController {
                 break;
             case 'POST':
                 $this->handlePost();
+                break;
+            default:
+                http_response_code(405);
+                echo 'Not Allowed';
         }
     }
 }
