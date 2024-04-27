@@ -13,7 +13,7 @@ class LoginController {
         $handler = new \App\API\Handlers\UsersHandler($pdo);
 
         $login = $handler->login($_POST["username"], $_POST["password"]);
-        if ($login) {
+        if ($login == 1) {
             $_SESSION["user-id"] = $login['id'];
             echo '<script>
                     alert("Login!");

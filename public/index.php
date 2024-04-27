@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 if (isset($_SESSION['user-id'])) {
     var_dump($_SESSION['user-id']);
 } else {
-    echo "not set";
+    echo "not set<br>";
 }
 
 require "../vendor/autoload.php";
