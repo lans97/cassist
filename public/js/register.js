@@ -18,7 +18,11 @@ $('#registerForm').submit(function(event) {
         contentType: 'application/json',
         data: JSON.stringify(userData),
         success: function(response) {
-            alert(`New user creatred with ID: ${response.id}`);
+            if (response.success){
+                alert(`New user creatred with ID: ${response.data.id}`);
+            } else {
+                alert(`Error: ${response.error}`);
+            }
             console.log(response);
         },
         error: function(xhr, status, error) {

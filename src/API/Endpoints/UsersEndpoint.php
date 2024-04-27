@@ -48,7 +48,20 @@ class UsersEndpoint
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $requestData = json_decode(file_get_contents('php://input'), true);
             $newUser = $userHandler->createUser($requestData);
-            json_encode($newUser);
+            if ($newUser) {
+                $output = [
+                    "success" => "true",
+                    "data" => $newUser,
+                    "error" => ""
+                ];
+            } else {
+                $output = [
+                    "success" => "false",
+                    "data" => $newUser,
+                    "error" => "Failed to create new user"
+                ];
+            }
+            json_encode($output);
         } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             $requestData = json_decode(file_get_contents('php://input'), true);
         } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
