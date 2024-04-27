@@ -49,7 +49,7 @@ class UsersHandler {
     
     public function createUser($user) {
         $salt = random_bytes(16);
-        $hash = $this->hashPassword($user['password'], $salt);
+        $hash = password_hash($salt . $user['password'], PASSWORD_DEFAULT);
         $query = "INSERT INTO user
                     (`username`,
                      `mail`,
@@ -113,23 +113,11 @@ class UsersHandler {
         $stmt = $this->_pdo->prepare($query);
         $stmt->execute([':username' => $username]);
         $loginData = $stmt->fetch(\PDO::FETCH_ASSOC);
-        $match = $this->verifyPassword($loginData["password"], $loginData["password_hash"], $loginData["salt"]);
+        $match = password_verify($loginData['salt'] . $password, $loginData['password_hash']);
         if ($match) {
             return $this->getUser($loginData["id"]);
         } else {
             return false;
         }
     }
-
-    private function hashPassword($password, $salt) {
-        $hash = password_hash($password, PASSWORD_BCRYPT, ['salt' => $salt]);
-        return $hash;
-    }
-    
-    private function verifyPassword($password, $storedHash, $storedSalt) {
-        $computedHash = password_hash($password, PASSWORD_BCRYPT, ['salt' => $storedSalt]);
-    
-        return password_verify($computedHash, $storedHash);
-    }
-    
 }
