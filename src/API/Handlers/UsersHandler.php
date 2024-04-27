@@ -114,6 +114,9 @@ class UsersHandler {
         $stmt->execute([':username' => $username]);
         $loginData = $stmt->fetch(\PDO::FETCH_ASSOC);
         $match = password_verify($loginData['salt'] . $password, $loginData['password_hash']);
+        echo "<script>
+                alert('$match');
+              </script>";
         if ($match) {
             return $this->getUser($loginData["id"]);
         } else {
