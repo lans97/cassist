@@ -8,6 +8,8 @@ $('#registerForm').submit(function(event) {
     $.each(formData, function(index, field) {
         userData[field.name] = field.value;
     });
+    
+    alert(userData);
 
     // Sending data to the PHP script using jQuery
     $.ajax({

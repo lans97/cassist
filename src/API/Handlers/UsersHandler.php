@@ -68,7 +68,7 @@ class UsersHandler {
             ':mail' => $user['mail'],
             ':password_hash' => $hash,
             ':salt' => $salt,
-            ':super_user' => $user['super_user']
+            ':super_user' => $user['super_user'] == 'true' ? 1 : 0,
         ]);
         
         $userId = $this->_pdo->lastInsertId();
