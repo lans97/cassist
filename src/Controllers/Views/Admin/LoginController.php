@@ -20,7 +20,7 @@ class LoginController {
         } else {
             echo '<script>
                     alert("No login");
-                    window.location.href="admin/login";
+                    window.location.href="/admin/login";
                   </script>';
             exit();
         }
