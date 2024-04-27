@@ -6,27 +6,27 @@ switch ($route) {
         exit();
     case 'admin/login':
         $controller = new \App\Controllers\Views\Admin\LoginController();
-        $controller->index();
+        $controller->handleCalls();
         break;
     case 'admin/cruds':
         $controller = new \App\Controllers\Views\Admin\CrudsController();
-        $controller->index();
+        $controller->handleCalls();
         break;
     case 'admin/users':
         $controller = new \App\Controllers\Views\Admin\UsersController();
-        $controller->index();
+        $controller->handleCalls();
         break;
     case 'admin/movements':
         $controller = new \App\Controllers\Views\Admin\MovementsController();
-        $controller->index();
+        $controller->handleCalls();
         break;
     case 'admin/movement-categories':
         $controller = new \App\Controllers\Views\Admin\MovementCategoriesController();
-        $controller->index();
+        $controller->handleCalls();
         break;
     case 'admin/accounts':
         $controller = new \App\Controllers\Views\Admin\AccountsController();
-        $controller->index();
+        $controller->handleCalls();
         break;
     default:
         http_response_code(404);
