@@ -110,7 +110,8 @@ class UsersHandler {
                     `salt`
                   FROM `user`
                   WHERE `username` = :username";
-        $stmt = $this->_pdo->query($query);
+        $stmt = $this->_pdo->prepare($query);
+        $stmt->execute([':username' => $username]);
         $loginData = $stmt->fetch(\PDO::FETCH_ASSOC);
         $match = $this->verifyPassword($loginData["password"], $loginData["password_hash"], $loginData["salt"]);
         if ($match) {
