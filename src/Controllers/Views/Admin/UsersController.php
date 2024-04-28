@@ -8,7 +8,7 @@ class UsersController {
     }
 
     public function handleCalls() {
-        if (isset($_SESSION['user-id'])){
+        if (isset($_SESSION['token'])){
             header("Location: /admin/cruds");
             exit();
         }

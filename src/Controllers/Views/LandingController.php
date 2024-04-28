@@ -8,7 +8,7 @@ class LandingController {
     }
 
     public function handleCalls() {
-        if (isset($_SESSION['user-id'])){
+        if (isset($_SESSION['token'])){
             header("Location: /home");
             exit();
         }

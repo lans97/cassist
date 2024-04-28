@@ -15,7 +15,7 @@ switch ($route) {
         echo 'About Us';
         break;
     case 'logout':
-        include PROJECT_ROOT . 'src/controllers/Logout.php';
+        include PROJECT_ROOT . 'src/controllers/Views/Logout.php';
         break;
     default:
         http_response_code(404);

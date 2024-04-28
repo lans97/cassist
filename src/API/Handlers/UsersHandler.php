@@ -115,9 +115,17 @@ class UsersHandler {
         $loginData = $stmt->fetch(\PDO::FETCH_ASSOC);
         $match = password_verify($loginData['salt'] . $password, $loginData['password_hash']);
         if ($match) {
-            return $this->getUser($loginData["id"]);
+            $response = [
+                'success' => true,
+                'token' => md5(uniqid(microtime(), true)),
+                'id' => $loginData['id']
+            ];
         } else {
-            return false;
+            $response = [
+                'success' => false,
+                'error' => "Passwords don't match",
+            ];
         }
+        return $response;
     }
 }

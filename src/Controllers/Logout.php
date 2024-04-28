@@ -1,7 +1,8 @@
 <?php
 
-if (isset($_SESSION['user-id'])){
-    unset($_SESSION['user-id']);
+if (isset($_SESSION['token'])){
+    unset($_SESSION['token']);
+    unset($_SESSION['username']);
 }
 header("Location: /");
 exit();

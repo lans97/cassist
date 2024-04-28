@@ -12,23 +12,26 @@ class LoginController {
         $pdo = getPDOConnection();
         $handler = new \App\API\Handlers\UsersHandler($pdo);
 
-        $login = $handler->login($_POST["username"], $_POST["password"]);
-        if ($login) {
-            $_SESSION["user-id"] = $login;
+        $loginData = $handler->login($_POST["username"], $_POST["password"]);
+        if ($loginData['success']) {
+            $user = $handler->getUser($loginData['id']);
+            $_SESSION["token"] = $loginData["token"];
+            $_SESSION["username"] = $user['username'];
             echo '<script>
                     alert("Login!");
                     window.location.href="/admin/cruds";
                   </script>';
         } else {
-            echo '<script>
-                    alert("No login");
-                    window.location.href="/admin/login";
-                  </script>';
+            $error = $loginData['error'];
+            echo "<script>
+                    alert('$error');
+                    window.location.href='/admin/login';
+                  </script>";
         }
     }
 
     public function handleCalls() {
-        if (isset($_SESSION['user-id'])){
+        if (isset($_SESSION['token'])){
             header("Location: /admin/cruds");
             exit();
         }
