@@ -8,6 +8,9 @@ switch ($route) {
         $controller = new \App\Controllers\Views\Admin\LoginController();
         $controller->handleCalls();
         break;
+    case 'admin/logout':
+        include PROJECT_ROOT . 'src/Controllers/Logout.php';
+        break;
     case 'admin/cruds':
         $controller = new \App\Controllers\Views\Admin\CrudsController();
         $controller->handleCalls();

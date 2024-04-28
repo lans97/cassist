@@ -8,7 +8,7 @@
 </nav>
 
 <div>
-<form action="logout">
+<form action="/admin/logout">
   <button type="submit">Logout</button>
 </form>
 </div>
