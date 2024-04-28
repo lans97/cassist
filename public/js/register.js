@@ -1,17 +1,49 @@
 $('#registerForm').submit(function(event) {
     event.preventDefault();
 
-    var formData = $(this).serializeArray();
-    var userData = {};
+    var username = $("#username").val();
+    var mail = $("#mail").val();
+    var password = $("#password").val();
+    var confirmPassword = $("#confirmPassword").val();
+    var super_user = $("#super_user").val();
 
-    // Convert serialized array to object
-    $.each(formData, function(index, field) {
-        userData[field.name] = field.value;
-    });
+    var userData = {
+        username: username,
+        mail: mail,
+        password: password,
+        super_user: super_user
+    };
     
-    console.log(userData);
+     if (username.trim() === "") {
+        $("#usernameError").html("Username is required");
+        isValid = false;
+    }
 
-    // Sending data to the PHP script using jQuery
+    if (mail.trim() === "") {
+        $("#emailError").html("Email is required");
+        isValid = false;
+    } else if (!isValidEmail(mail)) {
+        $("#emailError").html("Invalid email format");
+        isValid = false;
+    }
+
+    if (password.trim() === "") {
+        $("#passwordError").html("Password is required");
+        isValid = false;
+    }
+
+    if (confirmPassword.trim() === "") {
+        $("#confirmPasswordError").html("Please confirm your password");
+        isValid = false;
+    } else if (confirmPassword !== password) {
+        $("#confirmPasswordError").html("Passwords do not match");
+        isValid = false;
+    }
+
+    if (isValid) {
+        this.submit();
+    }
+
     $.ajax({
         url: '/api/users',
         type: 'POST',
@@ -30,3 +62,9 @@ $('#registerForm').submit(function(event) {
         }
     });
 });
+
+function isValidEmail(email) {
+    // Regular expression for email validation
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
