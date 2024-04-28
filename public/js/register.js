@@ -57,6 +57,7 @@ $('#registerForm').submit(function(event) {
         success: function(response) {
             if (response.success){
                 alert(`New user creatred with ID: ${response.data.id}`);
+                window.location.href('/admin/login');
             } else {
                 alert(`Error: ${response.error}`);
             }
