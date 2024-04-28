@@ -7,8 +7,8 @@
   </div>
 </nav>
 
-<div>
+<?php if (isset($_SESSION['token'])) { ?>
 <form action="/admin/logout">
   <button type="submit">Logout</button>
 </form>
-</div>
+<?php } ?>
