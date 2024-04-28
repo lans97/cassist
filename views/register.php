@@ -1,4 +1,4 @@
-<form action="" id="registerForm">
+<form id="registerForm">
     <label for="username">Username</label><br>
     <input type="text" name="username" id="username"><br>
     <span id="usernameError" class="error"></span><br>
