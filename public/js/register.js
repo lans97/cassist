@@ -15,6 +15,7 @@ $('#registerForm').submit(function(event) {
     };
     
     let isValid = true;
+    $(".error").html(""); 
 
     if (username.trim() === "") {
         $("#usernameError").html("Username is required");
