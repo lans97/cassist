@@ -42,8 +42,10 @@ $('#registerForm').submit(function(event) {
 
     if (isValid) {
         this.submit();
+    } else {
+        return;
     }
-
+    
     $.ajax({
         url: '/api/users',
         type: 'POST',
