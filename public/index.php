@@ -2,11 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-if (isset($_SESSION['user-id'])) {
-    var_dump($_SESSION['user-id']);
-} else {
-    echo "not set<br>";
-}
+session_start();
 
 require "../vendor/autoload.php";
 define('PROJECT_ROOT', __DIR__ . '/../');
