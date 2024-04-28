@@ -14,6 +14,7 @@ class LoginController {
 
         $login = $handler->login($_POST["username"], $_POST["password"]);
         if ($login) {
+            session_start();
             $_SESSION["user-id"] = $login;
             echo '<script>
                     alert("Login!");
