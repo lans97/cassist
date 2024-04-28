@@ -23,10 +23,10 @@ $('#registerForm').submit(function(event) {
     }
 
     if (mail.trim() === "") {
-        $("#emailError").html("Email is required");
+        $("#mailError").html("Email is required");
         isValid = false;
     } else if (!isValidEmail(mail)) {
-        $("#emailError").html("Invalid email format");
+        $("#mailError").html("Invalid email format");
         isValid = false;
     }
 
