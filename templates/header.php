@@ -6,6 +6,6 @@
   </div>
 </nav>
 
-<form action="logout">
+<form action="/logout">
   <button type="submit" class="btn btn-secondary">Logout</button>
 </form>
