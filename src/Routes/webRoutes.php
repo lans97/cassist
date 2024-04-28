@@ -11,8 +11,10 @@ switch ($route) {
     case 'register':
         $controller = new App\Controllers\Views\RegisterController();
         $controller->handleCalls();
+        break;
     case 'about':
-        echo 'About Us';
+        $controller = new App\Controllers\Views\AboutController();
+        $controller->handleCalls();
         break;
     case 'logout':
         include PROJECT_ROOT . 'src/Controllers/Logout.php';

@@ -11,3 +11,5 @@
     <input type="checkbox" id="userSuperIN">
     <button class="btn btn-primary" id="addUserBTN">Add</button>
 </form>
+
+<script src=""></script>

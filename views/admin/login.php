@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-center align-items-center vh-100">
+<div class="container d-flex justify-content-center align-items-center">
     <div class="card">
         <div class="card-body">
             <h2 class="card-title">Admin Login</h2>
@@ -10,7 +10,7 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" class="form-control" required>
-                </div>
+                </div><br>
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
         </div>

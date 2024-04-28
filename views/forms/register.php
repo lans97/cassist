@@ -1,9 +1,9 @@
 <form id="registerForm">
     <label for="username">Username</label><br>
     <input type="text" name="username" id="username"><br>
-    <span id="usernameError" class="error"></span><br>
-    <label for="mail">Mail</label><br>
-    <input type="text" name="mail" id="mail"><br>
+    <span id="usernameError" class="invalid-feedback"></span><br>
+    <label for="email">Mail</label><br>
+    <input type="email" name="email" id="email"><br>
     <span id="mailError" class="error"></span><br>
     <label for="password">Password</label><br>
     <input type="password" name="password" id="password"><br>
@@ -13,7 +13,7 @@
     <span id="confirmPasswordError" class="error"></span><br>
     <input type="checkbox" name="super_user" id="super_user">
     <label for="super_user">Super User</label><br>
-    <button class="btn btn-primary" id="registerBTN">Register</button><br>
+    <button class="btn btn-secondary" id="registerBTN">Register</button><br>
 </form>
 
 <script src="js/register.js"></script>

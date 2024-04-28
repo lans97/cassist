@@ -1,3 +1,3 @@
 <div class="container">
-    <h1>Welcome</h1>
+    <h2>About Us</h2>
 </div>
