@@ -1,11 +1,12 @@
 <?php
+require_once PROJECT_ROOT . "src/Utils/database.service.php";
 
 switch ($route) {
     case 'api':
         echo '';
         break;
     case 'api/users':
-        $usersEndpoint = new \App\API\Endpoints\UsersEndpoint();
+        $usersEndpoint = new \App\API\Endpoints\UsersEndpoint(getPDOConnection());
         $usersEndpoint->handleUsersEndpoint();
         break;
     default:

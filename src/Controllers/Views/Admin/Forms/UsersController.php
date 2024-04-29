@@ -1,15 +1,15 @@
-<?php namespace App\Controllers\Views;
+<?php namespace App\Controllers\Views\Admin\Forms;
 
-class RegisterController {
-    private function index() {
-        $title = "Register";
-        $content = file_get_contents(PROJECT_ROOT . "views/register.php");
-        include (PROJECT_ROOT . "templates/base.php");
+class UsersController {
+    public function index() {
+        include '../templates/header.php';
+        include '../views/admin/users.php';
+        include '../templates/footer.php';
     }
 
     public function handleCalls() {
         if (isset($_SESSION['token'])){
-            header("Location: /home");
+            header("Location: /admin/cruds");
             exit();
         }
         switch ($_SERVER['REQUEST_METHOD']){

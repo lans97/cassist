@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers\Views\Admin;
+namespace App\Controllers\Views\Admin\Forms;
 
 class LoginController {
     private function index() {
@@ -7,7 +7,7 @@ class LoginController {
         $content = file_get_contents(PROJECT_ROOT . "views/admin/login.php");
         include (PROJECT_ROOT . "templates/admin/base.php");
     }
-
+        
     public function handlePost() {
         require_once PROJECT_ROOT . "src/Utils/database.service.php";
         $pdo = getPDOConnection();

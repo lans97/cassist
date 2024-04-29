@@ -63,7 +63,7 @@ class UsersHandler {
 
     public function create_user($user) {
         try {
-            $salt = random_bytes(16);
+            $salt = bin2hex(random_bytes(16));
             $hash = password_hash($salt . $user['password'], PASSWORD_DEFAULT);
             $query = "INSERT INTO `user`
                     (`username`,
@@ -78,13 +78,12 @@ class UsersHandler {
                      :salt,
                      :super_user)";
             $stmt = $this->_pdo->prepare($query);
-            $stmt->execute([
-                ':username' => $user['username'],
-                ':email' => $user['email'],
-                ':password_hash' => $hash,
-                ':salt' => $salt,
-                ':super_user' => $user['super_user'] == 'true' ? 1 : 0,
-            ]);
+            $stmt->bindParam(':username', $user['username'], \PDO::PARAM_STR);
+            $stmt->bindParam(':email', $user['email'], \PDO::PARAM_STR);
+            $stmt->bindParam(':password_hash', $hash, \PDO::PARAM_STR);
+            $stmt->bindParam(':salt', $salt, \PDO::PARAM_STR);
+            $stmt->bindParam(':super_user', $user['super_user'], \PDO::PARAM_BOOL);
+            $stmt->execute();
 
             $userId = $this->_pdo->lastInsertId();
             return $this->get_user($userId);

@@ -1,4 +1,4 @@
-<form action="/addUser" method="POST">
+<form id="addUserForm">
     <label for="usernameIN">Username</label>
     <input type="text" id="usernameIN">
     <label for="userMailIN">Mail</label>
@@ -12,4 +12,4 @@
     <button class="btn btn-primary" id="addUserBTN">Add</button>
 </form>
 
-<script src=""></script>
+<script src="js/addUser-form.js"></script>

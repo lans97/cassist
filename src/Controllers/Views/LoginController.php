@@ -1,15 +1,15 @@
-<?php namespace App\Controllers\Views\Admin;
+<?php namespace App\Controllers\Views;
 
-class UsersController {
-    public function index() {
-        include '../templates/header.php';
-        include '../views/admin/users.php';
-        include '../templates/footer.php';
+class LoginController {
+    private function index() {
+        $title = "Login";
+        $content = file_get_contents(PROJECT_ROOT . "views/login.php");
+        include (PROJECT_ROOT . "templates/base.php");
     }
-
+    
     public function handleCalls() {
         if (isset($_SESSION['token'])){
-            header("Location: /admin/cruds");
+            header("Location: /home");
             exit();
         }
         switch ($_SERVER['REQUEST_METHOD']){
@@ -19,6 +19,7 @@ class UsersController {
             default:
                 http_response_code(405);
                 echo 'Not Allowed';
+                break;
         }
     }
 }

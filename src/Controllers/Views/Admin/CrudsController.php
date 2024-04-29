@@ -8,7 +8,6 @@ class CrudsController {
     }
 
     private function handlePost() {
-        echo "hi";
         header("Location: admin/cruds");
         exit();
     }

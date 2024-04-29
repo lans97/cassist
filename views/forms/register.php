@@ -1,19 +1,26 @@
-<form id="registerForm">
-    <label for="username">Username</label><br>
-    <input type="text" name="username" id="username"><br>
-    <span id="usernameError" class="invalid-feedback"></span><br>
-    <label for="email">Mail</label><br>
-    <input type="email" name="email" id="email"><br>
-    <span id="mailError" class="error"></span><br>
-    <label for="password">Password</label><br>
-    <input type="password" name="password" id="password"><br>
-    <span id="passwordError" class="error"></span><br>
-    <label for="confirmPassword">Confirm Password</label><br>
-    <input type="password" id="confirmPassword"><br>
-    <span id="confirmPasswordError" class="error"></span><br>
-    <input type="checkbox" name="super_user" id="super_user">
-    <label for="super_user">Super User</label><br>
-    <button class="btn btn-secondary" id="registerBTN">Register</button><br>
+<form id="registerForm" class="needs-validation" novalidate>
+    <div class="form-group">
+        <label for="username">Username</label><br>
+        <input type="text" name="username" id="username" required>
+        <div class="invalid-feedback">Username is required</div>
+    </div>
+    <div class="form-group">
+        <label for="email">Mail</label><br>
+        <input type="email" name="email" id="email" required>
+        <div class="invalid-feedback">Mail is required</div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label><br>
+        <input type="password" name="password" id="password" required>
+        <div class="invalid-feedback">Password is required</div>
+    </div>
+    <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label><br>
+        <input type="password" id="confirmPassword" required>
+        <div class="invalid-feedback">Password confirmation is required</div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-secondary">Register</button>
 </form>
 
 <script src="js/register.js"></script>

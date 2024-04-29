@@ -8,8 +8,12 @@ switch ($route) {
         $controller = new App\Controllers\Views\HomeController();
         $controller->handleCalls();
         break;
+    case 'login':
+        $controller = new App\Controllers\Views\LoginController();
+        $controller->handleCalls();
+        break;
     case 'register':
-        $controller = new App\Controllers\Views\RegisterController();
+        $controller = new App\Controllers\Views\Forms\RegisterController();
         $controller->handleCalls();
         break;
     case 'about':

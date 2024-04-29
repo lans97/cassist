@@ -10,10 +10,10 @@ class User {
     private $_updated_at;
 
 
-    public function __construct($id, $username, $mail, $super_user, $created_at, $updated_at) {
+    public function __construct($id, $username, $email, $super_user, $created_at, $updated_at) {
         $this->_id = $id;
         $this->_username = $username;
-        $this->_mail = $mail;
+        $this->_email = $email;
         $this->_super_user = $super_user;
         $this->_created_at = $created_at;
         $this->_updated_at = $updated_at;
