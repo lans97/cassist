@@ -62,6 +62,12 @@ class UsersEndpoint {
                 "error" => $e->getMessage(),
             );
             echo json_encode($response);
+        } catch (\PDOException $e) {
+            $response = array(
+                "success" => false,
+                "error" => $e->getMessage(),
+            );
+            echo json_encode($response);
         }
     }
 
