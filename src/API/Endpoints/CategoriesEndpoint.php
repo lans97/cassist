@@ -1,44 +1,44 @@
 <?php
 namespace App\API\Endpoints;
 
-class UsersEndpoint {
+class CategoriesEndpoint {
     private $_pdo;
     private $_handler;
 
     public function __construct(\PDO $pdo) {
         $this->_pdo = $pdo;
-        $this->handler = new \App\API\Handlers\UsersHandler($this->_pdo);
+        $this->handler = new \App\API\Handlers\CategoriesHandler($this->_pdo);
     }
 
     public function get() {
-        if (isset($_GET['user-id'])) {
+        if (isset($_GET['category-id'])) {
             try {
-                $user = $this->_handler->get_user($_GET['user-id']);
+                $category = $this->_handler->get_category($_GET['category-id']);
                 $response = [
                     "success" => "true",
-                    "data" => $user,
+                    "data" => $category,
                     "error" => ""
                 ];
             } catch (\Exception $e) {
                 $response = [
                     "success" => "false",
-                    "data" => $user,
+                    "data" => $category,
                     "error" => $e->getMessage()
                 ];
             }
             echo json_encode($response);
         } else {
             try {
-                $users = $this->_handler->get_users();
+                $categories = $this->_handler->get_categories();
                 $response = [
                     "success" => "true",
-                    "data" => $users,
+                    "data" => $categories,
                     "error" => ""
                 ];
             } catch (\Exception $e) {
                 $response = [
                     "success" => "false",
-                    "data" => $users,
+                    "data" => $categories,
                     "error" => $e->getMessage()
                 ];
             }
@@ -49,7 +49,7 @@ class UsersEndpoint {
     public function post() {
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
-            $newUser = $this->_handler->create_user($requestData);
+            $newUser = $this->_handler->create_category($requestData);
             $response = [
                 "success" => "true",
                 "data" => $newUser,
@@ -68,7 +68,7 @@ class UsersEndpoint {
     public function put() {
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
-            $updatedUser = $this->_handler->update_user($requestData);
+            $updatedUser = $this->_handler->update_category($requestData);
             $response = [
                 "success" => "true",
                 "data" => $updatedUser,
@@ -86,15 +86,15 @@ class UsersEndpoint {
 
     public function delete() {
         try {
-            $userId = isset($_GET['user-id']) ? $_GET['user-id'] : null;
-            $this->_handler->delete_user($userId);
+            $categoryId = isset($_GET['category-id']) ? $_GET['category-id'] : null;
+            $this->_handler->delete_category($categoryId);
             http_response_code(204);
         } catch (\Exception $e) {
             http_response_code(404);
             echo json_encode(array('error' => $e->getMessage()));
         }
     }
-    public function handleUsersEndpoint() {
+    public function handleCategoriesEndpoint() {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 $this->get();

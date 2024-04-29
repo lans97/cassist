@@ -1,4 +1,5 @@
-<?php namespace App\Controllers\Views\Admin;
+<?php
+namespace App\Controllers\Views\Admin;
 
 class LoginController {
     private function index() {
@@ -6,36 +7,38 @@ class LoginController {
         $content = file_get_contents(PROJECT_ROOT . "views/admin/login.php");
         include (PROJECT_ROOT . "templates/admin/base.php");
     }
-    
+
     public function handlePost() {
         require_once PROJECT_ROOT . "src/Utils/database.service.php";
         $pdo = getPDOConnection();
         $handler = new \App\API\Handlers\UsersHandler($pdo);
 
-        $loginData = $handler->login($_POST["username"], $_POST["password"]);
-        if ($loginData['success']) {
-            $user = $handler->getUser($loginData['id']);
-            $_SESSION["token"] = $loginData["token"];
+        try {
+            $handler->login($_POST["username"], $_POST["password"]);
+
+            $user = $handler->get_user($loginData);
+            $_SESSION["token"] = md5(uniqid(microtime(), true));
             $_SESSION["username"] = $user['username'];
-            echo '<script>
-                    alert("Login!");
-                    window.location.href="/admin/cruds";
-                  </script>';
-        } else {
-            $error = $loginData['error'];
+            header('Location: /admin/cruds');
+            exit();
+        } catch (\Exception $e) {
             echo "<script>
-                    alert('$error');
-                    window.location.href='/admin/login';
+                    alert('Incorrect username or password');
+                  </script>";
+        } catch (\PDOException $e) {
+            $msg = $e->getMessage();
+            echo "<script>
+                    alert('$msg');
                   </script>";
         }
     }
 
     public function handleCalls() {
-        if (isset($_SESSION['token'])){
+        if (isset($_SESSION['token'])) {
             header("Location: /admin/cruds");
             exit();
         }
-        switch ($_SERVER['REQUEST_METHOD']){
+        switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 $this->index();
                 break;

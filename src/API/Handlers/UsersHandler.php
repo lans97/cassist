@@ -1,131 +1,157 @@
-<?php namespace App\API\Handlers;
+<?php
+namespace App\API\Handlers;
 
 use PDOException;
 
 class UsersHandler {
     private $_pdo;
-    
+
     public function __construct(\PDO $pdo) {
         $this->_pdo = $pdo;
     }
-    
-    public function getUsers() {
-        $query = "SELECT 
+
+    public function get_users() {
+        try {
+            $query = "SELECT 
                     `id`,
                     `username`,
-                    `mail`,
+                    `email`,
                     `super_user`,
                     `created_at`,
                     `updated_at`
                   FROM `user`";
-        $stmt = $this->_pdo->query($query);
-        $usersData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $stmt = $this->_pdo->query($query);
+            $usersData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if ($usersData === false) {
+                throw new \Exception("No users in database");
+            }
 
-        $users = [];
-        foreach ($usersData as $user) {
-            $user = new \App\Models\User($user['id'], $user['username'], $user['mail'], $user['super_user'], $user['created_at'], $user['updated_at']);
-            $users[] = $user->toArray();
+            $users = [];
+            foreach ($usersData as $userData) {
+                $user = new \App\Models\User($userData['id'], $userData['username'], $userData['email'], $userData['super_user'], $userData['created_at'], $userData['updated_at']);
+                $users[] = $user->to_array();
+            }
+            return $users;
+        } catch (PDOException $th) {
+            throw new PDOException($th->getMessage());
         }
-        return $users;
     }
-    
-    public function getUser($id) {
-        $query = "SELECT 
+
+    public function get_user($id) {
+        try {
+            $query = "SELECT 
                     `id`,
                     `username`,
-                    `mail`,
+                    `email`,
                     `super_user`,
                     `created_at`,
                     `updated_at`
                   FROM `user`
                   WHERE `id` = :id";
-        $stmt = $this->_pdo->prepare($query);
-        $stmt->execute([':id' => $id]);
-        $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
-
-        $user= new \App\Models\User($userData['id'], $userData['username'], $userData['mail'], $userData['super_user'], $userData['created_at'], $userData['updated_at']);
-        return $user->toArray();
+            $stmt = $this->_pdo->prepare($query);
+            $stmt->execute([':id' => $id]);
+            $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
+            if (empty($userData)) {
+                throw new \Exception('User not found');
+            }
+            $user = new \App\Models\User($userData['id'], $userData['username'], $userData['email'], $userData['super_user'], $userData['created_at'], $userData['updated_at']);
+            return $user->to_array();
+        } catch (PDOException $th) {
+            throw new PDOException($th->getMessage());
+        }
     }
-    
-    public function createUser($user) {
-        $salt = random_bytes(16);
-        $hash = password_hash($salt . $user['password'], PASSWORD_DEFAULT);
-        $query = "INSERT INTO user
+
+    public function create_user($user) {
+        try {
+            $salt = random_bytes(16);
+            $hash = password_hash($salt . $user['password'], PASSWORD_DEFAULT);
+            $query = "INSERT INTO `user`
                     (`username`,
-                     `mail`,
+                     `email`,
                      `password_hash`,
                      `salt`,
                      `super_user`)
                   VALUES
                     (:username,
-                     :mail,
+                     :email,
                      :password_hash,
                      :salt,
-                     :super_user)";      
-        $stmt = $this->_pdo->prepare($query);
-        $stmt->execute([
-            ':username' => $user['username'],
-            ':mail' => $user['mail'],
-            ':password_hash' => $hash,
-            ':salt' => $salt,
-            ':super_user' => $user['super_user'] == 'true' ? 1 : 0,
-        ]);
-        
-        $userId = $this->_pdo->lastInsertId();
-        return $this->getUser($userId);
+                     :super_user)";
+            $stmt = $this->_pdo->prepare($query);
+            $stmt->execute([
+                ':username' => $user['username'],
+                ':email' => $user['email'],
+                ':password_hash' => $hash,
+                ':salt' => $salt,
+                ':super_user' => $user['super_user'] == 'true' ? 1 : 0,
+            ]);
+
+            $userId = $this->_pdo->lastInsertId();
+            return $this->get_user($userId);
+        } catch (PDOException $th) {
+            throw new PDOException($th->getMessage());
+        }
     }
-    
-    public function updateUser($user) {
-        $query = "UPDATE TABLE user
-                    `username` = :username,
-                    `mail` = :mail,
-                    `super_user` = :super_user
-                  WHERE `id` = :id";      
-        $stmt = $this->_pdo->prepare($query);
-        $stmt->execute([
-            ':username' => $user['username'],
-            ':mail' => $user['mail'],
-            ':super_user' => $user['super_user']
-        ]);
-        
-        return $this->getUser($user['id']);
-    }
-    
-    public function deleteUser($id) {
+
+    public function update_user($user) {
         try {
-            $query = "DELETE FROM user
+            $this->get_user($user['id']);
+            $query = "UPDATE TABLE `user`
+                    `username` = :username,
+                    `email` = :email,
+                    `super_user` = :super_user
+                  WHERE `id` = :id";
+            $stmt = $this->_pdo->prepare($query);
+            $stmt->execute([
+                ':username' => $user['username'],
+                ':email' => $user['email'],
+                ':super_user' => $user['super_user']
+            ]);
+
+            return $this->get_user($user['id']);
+        } catch (PDOException $th) {
+            throw new PDOException($th->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+    }
+
+    public function delete_user($id) {
+        try {
+            $this->get_user($id);
+            $query = "DELETE FROM `user`
                       WHERE `id` = :id";
             $stmt = $this->_pdo->prepare($query);
             $stmt->execute([":id" => $id]);
         } catch (PDOException $e) {
-            return false;
+            throw new PDOException($e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
-        return true;
     }
-    
+
     public function login($username, $password) {
-        $query = "SELECT
+        try {
+            $query = "SELECT
                     `id`,
                     `password_hash`,
                     `salt`
                   FROM `user`
                   WHERE `username` = :username";
-        $stmt = $this->_pdo->prepare($query);
-        $stmt->execute([':username' => $username]);
-        $loginData = $stmt->fetch(\PDO::FETCH_ASSOC);
-        $match = password_verify($loginData['salt'] . $password, $loginData['password_hash']);
-        if ($match) {
-            $response = [
-                'success' => true,
-                'token' => md5(uniqid(microtime(), true)),
-                'id' => $loginData['id']
-            ];
-        } else {
-            $response = [
-                'success' => false,
-                'error' => "Passwords don't match",
-            ];
+            $stmt = $this->_pdo->prepare($query);
+            $stmt->execute([':username' => $username]);
+            $loginData = $stmt->fetch(\PDO::FETCH_ASSOC);
+            if ($loginData === false) {
+                throw new \Exception('User not found');
+            }
+            $match = password_verify($loginData['salt'] . $password, $loginData['password_hash']);
+            if ($match === false) {
+                throw new \Exception('Incorrect password');
+            }
+            return $loginData['id'];
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage(), (int)$e->getCode());
         }
-        return $response;
     }
 }

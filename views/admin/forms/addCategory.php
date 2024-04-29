@@ -11,7 +11,7 @@ $users = $userHandler->getUsers();
 
 ?>
 
-<form action="/addMovementCategory" method="POST">
+<form action="/addCategory" method="POST">
     <label for="mCatNameIN">Name</label>
     <input type="text" id="mCatNameIN">
     <label for="idCatUserSEL">User</label>

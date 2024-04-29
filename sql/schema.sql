@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `user` (
     `id` INT AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL UNIQUE,
-    `mail` VARCHAR(255) NOT NULL UNIQUE,
+    `email` VARCHAR(255) NOT NULL UNIQUE,
     `password_hash` VARCHAR(255) NOT NULL,
     `salt` VARCHAR(255) NOT NULL,
     `super_user` BOOLEAN,
@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 CREATE TABLE IF NOT EXISTS `movement_category` (
     `id` INT AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL UNIQUE,
+    `color` INT,
     `user` INT NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user`) REFERENCES `user`(`id`) ON DELETE CASCADE
