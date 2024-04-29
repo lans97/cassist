@@ -88,6 +88,8 @@ class UsersHandler {
             $userId = $this->_pdo->lastInsertId();
             return $this->get_user($userId);
         } catch (PDOException $th) {
+            $msg = $th->getMessage();
+            echo "$msg";
             throw new PDOException($th->getMessage());
         }
     }
