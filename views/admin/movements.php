@@ -1,10 +1,20 @@
 <?php
-namespace App\Views\Admin;
+
+/**
+ * Movements CRUD
+ */
+
+require_once PROJECT_ROOT . "src/Utils/database.service.php";
+$pdo = getPDOConnection();
+$handler = new \App\API\Handlers\MovementsHandler($pdo);
+$movements = $handler->get_movements();
+
 ?>
+
 
 <h1>Movements</h1>
 
-<div id="formContainer">
+<div id="addMovementContainer">
     <button class="btn btn-primary">Add Movement</button>
 </div>
 
@@ -22,5 +32,16 @@ namespace App\Views\Admin;
     </thead>
 
     <tbody>
+        <?php foreach ($movements as $movement) { ?>
+            <tr>
+                <th><?= $movement['id'] ?></th>
+                <th><?= $movement['username'] ?></th>
+                <th><?= $movement['email'] ?></th>
+                <th><?= $movement['super_user'] ?></th>
+                <th><?= $movement['created_at'] ?></th>
+                <th><?= $movement['updated_at'] ?></th>
+                <th><button class="btn btn-secondary" value="<?= $movement['id']?>" >Edit</button><button class="btn btn-danger" >Delete</button></th>
+            </tr>
+        <?php } ?>
     </tbody>
 </table>

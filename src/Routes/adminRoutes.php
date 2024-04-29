@@ -5,7 +5,7 @@ switch ($route) {
         header('location: /admin/login', true);
         exit();
     case 'admin/login':
-        $controller = new \App\Controllers\Views\Admin\LoginController();
+        $controller = new \App\Controllers\Views\Admin\Forms\LoginController();
         $controller->handleCalls();
         break;
     case 'admin/logout':
@@ -16,7 +16,11 @@ switch ($route) {
         $controller->handleCalls();
         break;
     case 'admin/users':
-        $controller = new \App\Controllers\Views\Admin\UsersController();
+        $controller = new \App\Controllers\Views\Admin\Forms\UsersController();
+        $controller->handleCalls();
+        break;
+    case 'admin/addUser':
+        $controller = new \App\Controllers\Views\Admin\Forms\AddUsersController();
         $controller->handleCalls();
         break;
     // case 'admin/movements':

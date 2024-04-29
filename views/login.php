@@ -6,7 +6,7 @@
                     <h3 class="text-center">Login</h3>
                 </div>
                 <div class="card-body">
-                    <?php include PROJECT_ROOT . "views/forms/login.php"; ?>
+                    <?= $form ?>
                 </div>
             </div>
         </div>

@@ -1,20 +1,30 @@
-<?php namespace App\Controllers\Views;
+<?php
+namespace App\Controllers\Views;
 
 class LoginController {
     private function index() {
         $title = "Login";
-        $content = file_get_contents(PROJECT_ROOT . "views/login.php");
+        ob_start();
+        include (PROJECT_ROOT . "views/forms/login.php");
+        $form = ob_get_clean();
+        ob_start();
+        include (PROJECT_ROOT . "views/login.php");
+        $content = ob_get_clean();
         include (PROJECT_ROOT . "templates/base.php");
     }
-    
+
     public function handleCalls() {
-        if (isset($_SESSION['token'])){
+        if (isset($_SESSION['token'])) {
             header("Location: /home");
             exit();
         }
-        switch ($_SERVER['REQUEST_METHOD']){
+        switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 $this->index();
+                break;
+            case 'POST':
+                $loginForm = new \App\Controllers\Views\Forms\LoginController();
+                $loginForm->handleCalls();
                 break;
             default:
                 http_response_code(405);

@@ -1,9 +1,10 @@
 (function(window){
-    $("#addUserBTN").on("click", 
+    $("#addUser").on("click", 
         function(e){
             e.preventDefault();
-            $('#formContainer').load('/admin/addUser', function() {
-                $.getScript("js/admin/addUser-view.js");
+            $('#addUserContainer').load('/admin/addUser', function() {
+                console.log('click');
+                $.getScript("/js/admin/forms/addUser.js");
             });
         }
     );

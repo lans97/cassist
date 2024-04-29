@@ -1,8 +1,8 @@
 <?php namespace App\Controllers\Views\Admin\Forms;
 
-class UsersController {
+class AddUsersController {
     public function index() {
-        include PROJECT_ROOT . "views/admin/users.php";
+        include PROJECT_ROOT . "views/admin/forms/addUser.php";
     }
 
     public function handleCalls() {

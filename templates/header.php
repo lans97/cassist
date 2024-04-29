@@ -10,18 +10,24 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <?php if (!isset($_SESSION['token'])) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                <?php } else { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                <?php } ?>
+            </ul>
         </div>
     </div>
 </nav>
-
-<?php if (isset($_SESSION['token'])) { ?>
-    <form action="/logout">
-        <button type="submit" class="btn btn-secondary">Logout</button>
-    </form>
-<?php } ?>
