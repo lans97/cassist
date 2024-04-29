@@ -62,7 +62,8 @@ $(document).ready(function () {
                     window.location.href = "/login"
                 },
                 error: function (xhr, status, error) {
-                    console.error("Error:", error);
+                    console.error(xhr.responseText);
+                    alert("An error occured. Please try again later.");
                 },
             });
         }

@@ -59,7 +59,7 @@ class UsersEndpoint {
         } catch (\Exception $e) {
             $response = array(
                 "success" => false,
-                "error" => $e->getMessage()
+                "error" => $e->getMessage(),
             );
             echo json_encode($response);
         }

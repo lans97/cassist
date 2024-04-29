@@ -19,17 +19,22 @@ class LoginController {
             $user = $handler->get_user($loginData);
             $_SESSION["token"] = md5(uniqid(microtime(), true));
             $_SESSION["username"] = $user['username'];
+            $_SESSION["user-id"] = $user['user-id'];
             header('Location: /home');
             exit();
         } catch (\Exception $e) {
             echo "<script>
                     alert('Incorrect username or password');
+                    location.replace(location.href);
                   </script>";
+            exit();
         } catch (\PDOException $e) {
             $msg = $e->getMessage();
             echo "<script>
                     alert('$msg');
+                    location.replace(location.href);
                   </script>";
+            exit();
         }
     }
 
