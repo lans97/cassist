@@ -1,4 +1,5 @@
 <?php
+
 namespace App\API\Handlers;
 
 use PDOException;
@@ -114,7 +115,6 @@ class UsersHandler {
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
-
     }
 
     public function delete_user($id) {
@@ -151,7 +151,7 @@ class UsersHandler {
             }
             return $loginData['id'];
         } catch (PDOException $e) {
-            throw new PDOException($e->getMessage(), (int)$e->getCode());
+            throw new PDOException($e->getMessage(), (int) $e->getCode());
         }
     }
 }

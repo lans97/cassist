@@ -7,37 +7,34 @@ class UsersEndpoint {
 
     public function __construct(\PDO $pdo) {
         $this->_pdo = $pdo;
+        $this->_handler = new \App\API\Handlers\UsersHandler($this->_pdo);
     }
 
     public function get() {
-        $handler = new \App\API\Handlers\UsersHandler($this->_pdo);
         if (isset($_GET['user-id'])) {
             try {
-                $user = $handler->get_user($_GET['user-id']);
+                $user = $this->_handler->get_user($_GET['user-id']);
                 $response = [
-                    "success" => "true",
+                    "success" => true,
                     "data" => $user,
                 ];
             } catch (\Exception $e) {
                 $response = [
-                    "success" => "false",
-                    "data" => $user,
+                    "success" => false,
                     "error" => $e->getMessage()
                 ];
             }
             echo json_encode($response);
         } else {
             try {
-                $users = $handler->get_users();
+                $users = $this->_handler->get_users();
                 $response = [
-                    "success" => "true",
+                    "success" => true,
                     "data" => $users,
-                    "error" => ""
                 ];
             } catch (\Exception $e) {
                 $response = [
-                    "success" => "false",
-                    "data" => $users,
+                    "success" => false,
                     "error" => $e->getMessage()
                 ];
             }
@@ -46,13 +43,12 @@ class UsersEndpoint {
     }
 
     public function post() {
-        $handler = new \App\API\Handlers\UsersHandler($this->_pdo);
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
-            $handler->create_user($requestData);
+            $this->_handler->create_user($requestData);
             $response = array(
                 "success" => true,
-                "message" => "You have been registered",
+                "message" => "New user added",
             );
             echo json_encode($response);
         } catch (\Exception $e) {
@@ -71,25 +67,23 @@ class UsersEndpoint {
     }
 
     public function put() {
-        $handler = new \App\API\Handlers\UsersHandler($this->_pdo);
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
-            $updatedUser = $handler->update_user($requestData);
+            $updatedUser = $this->_handler->update_user($requestData);
             $response = [
-                "success" => "true",
+                "success" => true,
                 "data" => $updatedUser,
-                "error" => ""
             ];
             echo json_encode($response);
         } catch (\Exception $e) {
             $response = [
-                "success" => "false",
+                "success" => false,
                 "error" => $e->getMessage()
             ];
             echo json_encode($response);
         } catch (\PDOException $e) {
             $response = [
-                "success" => "false",
+                "success" => false,
                 "error" => $e->getMessage()
             ];
             echo json_encode($response);
@@ -97,16 +91,16 @@ class UsersEndpoint {
     }
 
     public function delete() {
-        $handler = new \App\API\Handlers\UsersHandler($this->_pdo);
         try {
             $userId = isset($_GET['user-id']) ? $_GET['user-id'] : null;
-            $handler->delete_user($userId);
+            $this->_handler->delete_user($userId);
             http_response_code(204);
         } catch (\Exception $e) {
             http_response_code(404);
             echo json_encode(array('error' => $e->getMessage()));
         }
     }
+
     public function handleUsersEndpoint() {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':

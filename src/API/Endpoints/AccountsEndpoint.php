@@ -15,14 +15,12 @@ class AccountsEndpoint {
             try {
                 $account = $this->_handler->get_account($_GET['account-id']);
                 $response = [
-                    "success" => "true",
+                    "success" => true,
                     "data" => $account,
-                    "error" => ""
                 ];
             } catch (\Exception $e) {
                 $response = [
-                    "success" => "false",
-                    "data" => $account,
+                    "success" => false,
                     "error" => $e->getMessage()
                 ];
             }
@@ -31,14 +29,12 @@ class AccountsEndpoint {
             try {
                 $accounts = $this->_handler->get_accounts();
                 $response = [
-                    "success" => "true",
+                    "success" => true,
                     "data" => $accounts,
-                    "error" => ""
                 ];
             } catch (\Exception $e) {
                 $response = [
-                    "success" => "false",
-                    "data" => $accounts,
+                    "success" => false,
                     "error" => $e->getMessage()
                 ];
             }
@@ -51,37 +47,46 @@ class AccountsEndpoint {
             $requestData = json_decode(file_get_contents('php://input'), true);
             $newUser = $this->_handler->create_account($requestData);
             $response = [
-                "success" => "true",
-                "data" => $newUser,
-                "error" => ""
+                "success" => true,
+                "data" => "New account added",
             ];
+            echo json_encode($response);
         } catch (\Exception $e) {
-            $response = [
-                "success" => "false",
-                "data" => $newUser,
-                "error" => $e->getMessage()
-            ];
+            $response = array(
+                "success" => false,
+                "error" => $e->getMessage(),
+            );
+            echo json_encode($response);
+        } catch (\PDOException $e) {
+            $response = array(
+                "success" => false,
+                "error" => $e->getMessage(),
+            );
+            echo json_encode($response);
         }
-        json_encode($response);
     }
 
     public function put() {
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
-            $updatedUser = $this->_handler->update_account($requestData);
+            $updatedAccount = $this->_handler->update_account($requestData);
             $response = [
-                "success" => "true",
-                "data" => $updatedUser,
-                "error" => ""
+                "success" => true,
+                "data" => $updatedAccount,
             ];
         } catch (\Exception $e) {
-            $response = [
-                "success" => "false",
-                "data" => $updatedUser,
-                "error" => $e->getMessage()
-            ];
+            $response = array(
+                "success" => false,
+                "error" => $e->getMessage(),
+            );
+            echo json_encode($response);
+        } catch (\PDOException $e) {
+            $response = array(
+                "success" => false,
+                "error" => $e->getMessage(),
+            );
+            echo json_encode($response);
         }
-        json_encode($response);
     }
 
     public function delete() {

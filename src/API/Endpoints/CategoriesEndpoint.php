@@ -7,7 +7,7 @@ class CategoriesEndpoint {
 
     public function __construct(\PDO $pdo) {
         $this->_pdo = $pdo;
-        $this->handler = new \App\API\Handlers\CategoriesHandler($this->_pdo);
+        $this->_handler = new \App\API\Handlers\CategoriesHandler($this->_pdo);
     }
 
     public function get() {
@@ -15,14 +15,12 @@ class CategoriesEndpoint {
             try {
                 $category = $this->_handler->get_category($_GET['category-id']);
                 $response = [
-                    "success" => "true",
+                    "success" => true,
                     "data" => $category,
-                    "error" => ""
                 ];
             } catch (\Exception $e) {
                 $response = [
-                    "success" => "false",
-                    "data" => $category,
+                    "success" => false,
                     "error" => $e->getMessage()
                 ];
             }
@@ -31,14 +29,12 @@ class CategoriesEndpoint {
             try {
                 $categories = $this->_handler->get_categories();
                 $response = [
-                    "success" => "true",
+                    "success" => true,
                     "data" => $categories,
-                    "error" => ""
                 ];
             } catch (\Exception $e) {
                 $response = [
-                    "success" => "false",
-                    "data" => $categories,
+                    "success" => false,
                     "error" => $e->getMessage()
                 ];
             }
@@ -49,39 +45,48 @@ class CategoriesEndpoint {
     public function post() {
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
-            $newUser = $this->_handler->create_category($requestData);
+            $this->_handler->create_category($requestData);
             $response = [
-                "success" => "true",
-                "data" => $newUser,
-                "error" => ""
+                "success" => true,
+                "message" => "New category added",
             ];
+            echo json_encode($response);
         } catch (\Exception $e) {
-            $response = [
-                "success" => "false",
-                "data" => $newUser,
-                "error" => $e->getMessage()
-            ];
+            $response = array(
+                "success" => false,
+                "error" => $e->getMessage(),
+            );
+            echo json_encode($response);
+        } catch (\PDOException $e) {
+            $response = array(
+                "success" => false,
+                "error" => $e->getMessage(),
+            );
+            echo json_encode($response);
         }
-        json_encode($response);
     }
 
     public function put() {
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
-            $updatedUser = $this->_handler->update_category($requestData);
+            $updatedCategory = $this->_handler->update_category($requestData);
             $response = [
-                "success" => "true",
-                "data" => $updatedUser,
-                "error" => ""
+                "success" => true,
+                "data" => $updatedCategory,
             ];
         } catch (\Exception $e) {
             $response = [
-                "success" => "false",
-                "data" => $updatedUser,
+                "success" => false,
                 "error" => $e->getMessage()
             ];
+            echo json_encode($response);
+        } catch (\PDOException $e) {
+            $response = [
+                "success" => false,
+                "error" => $e->getMessage()
+            ];
+            echo json_encode($response);
         }
-        json_encode($response);
     }
 
     public function delete() {
