@@ -28,7 +28,7 @@ class UsersHandler {
 
             $users = [];
             foreach ($usersData as $userData) {
-                $user = new \App\Models\User($userData['id'], $userData['username'], $userData['email'], $userData['super_user'], $userData['created_at'], $userData['updated_at']);
+                $user = new \App\Models\User($userData['id'], $userData['username'], $userData['email'], $userData['super_user'] == 1 ? true : false, $userData['created_at'], $userData['updated_at']);
                 $users[] = $user->to_array();
             }
             return $users;
@@ -54,7 +54,7 @@ class UsersHandler {
             if (empty($userData)) {
                 throw new \Exception('User not found');
             }
-            $user = new \App\Models\User($userData['id'], $userData['username'], $userData['email'], $userData['super_user'], $userData['created_at'], $userData['updated_at']);
+            $user = new \App\Models\User($userData['id'], $userData['username'], $userData['email'], $userData['super_user'] == 1 ? true : false, $userData['created_at'], $userData['updated_at']);
             return $user->to_array();
         } catch (PDOException $th) {
             throw new PDOException($th->getMessage());
@@ -88,8 +88,6 @@ class UsersHandler {
             $userId = $this->_pdo->lastInsertId();
             return $this->get_user($userId);
         } catch (PDOException $th) {
-            $msg = $th->getMessage();
-            echo "$msg";
             throw new PDOException($th->getMessage());
         }
     }
@@ -97,17 +95,18 @@ class UsersHandler {
     public function update_user($user) {
         try {
             $this->get_user($user['id']);
-            $query = "UPDATE TABLE `user`
-                    `username` = :username,
-                    `email` = :email,
-                    `super_user` = :super_user
-                  WHERE `id` = :id";
+            $query = "UPDATE `user`
+                      SET
+                        `username` = :username,
+                        `email` = :email,
+                        `super_user` = :super_user
+                      WHERE `id` = :id";
             $stmt = $this->_pdo->prepare($query);
-            $stmt->execute([
-                ':username' => $user['username'],
-                ':email' => $user['email'],
-                ':super_user' => $user['super_user']
-            ]);
+            $stmt->bindParam(':username', $user['username'], \PDO::PARAM_STR);
+            $stmt->bindParam(':email', $user['email'], \PDO::PARAM_STR);
+            $stmt->bindParam(':super_user', $user['super_user'], \PDO::PARAM_BOOL);
+            $stmt->bindParam(':id', $user['id'], \PDO::PARAM_INT);
+            $stmt->execute();
 
             return $this->get_user($user['id']);
         } catch (PDOException $th) {

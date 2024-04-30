@@ -2,7 +2,7 @@
     <h2>Models</h2>
 </div>
 <div class="row">
-    <div class="col-1">
+    <div class="col-2">
         <ul class="nav nav-pills flex-column mb-auto" >
             <li class="nav-item">
                 <a class="nav-link text-white" href="" id="crudUsers" >Users</a>
@@ -18,7 +18,7 @@
             </li>
         </ul>
     </div>
-    <div class="col-11" id="crudContainer">
+    <div class="col-10" id="crudContainer">
     </div>
 </div>
 

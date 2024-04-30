@@ -12,15 +12,14 @@ switch ($route) {
         include PROJECT_ROOT . 'src/Controllers/Logout.php';
         break;
     case 'admin/cruds':
+        if (!$_SESSION['admin']){
+            header('Location: /error/403', true);
+        }
         $controller = new \App\Controllers\Views\Admin\CrudsController();
         $controller->handleCalls();
         break;
     case 'admin/users':
         $controller = new \App\Controllers\Views\Admin\Forms\UsersController();
-        $controller->handleCalls();
-        break;
-    case 'admin/addUser':
-        $controller = new \App\Controllers\Views\Admin\Forms\AddUsersController();
         $controller->handleCalls();
         break;
     // case 'admin/movements':

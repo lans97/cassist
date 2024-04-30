@@ -2,7 +2,7 @@
 
 class UsersController {
     public function index() {
-        include PROJECT_ROOT . "views/admin/users.php";
+        include PROJECT_ROOT . "views/admin/forms/users.php";
     }
 
     public function handleCalls() {

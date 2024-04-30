@@ -23,8 +23,12 @@ switch ($route) {
     case 'logout':
         include PROJECT_ROOT . 'src/Controllers/Logout.php';
         break;
+    case 'error/403':
+        http_response_code(403);
+        include PROJECT_ROOT . "errors/403.php";
+        break;
     default:
         http_response_code(404);
-        echo 'Page not found';
+        include PROJECT_ROOT . "errors/404.php";
         break;
 }

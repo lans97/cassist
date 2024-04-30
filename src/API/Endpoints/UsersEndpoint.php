@@ -17,7 +17,6 @@ class UsersEndpoint {
                 $response = [
                     "success" => "true",
                     "data" => $user,
-                    "error" => ""
                 ];
             } catch (\Exception $e) {
                 $response = [
@@ -81,14 +80,20 @@ class UsersEndpoint {
                 "data" => $updatedUser,
                 "error" => ""
             ];
+            echo json_encode($response);
         } catch (\Exception $e) {
             $response = [
                 "success" => "false",
-                "data" => $updatedUser,
                 "error" => $e->getMessage()
             ];
+            echo json_encode($response);
+        } catch (\PDOException $e) {
+            $response = [
+                "success" => "false",
+                "error" => $e->getMessage()
+            ];
+            echo json_encode($response);
         }
-        echo json_encode($response);
     }
 
     public function delete() {

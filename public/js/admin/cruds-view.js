@@ -4,7 +4,7 @@
             e.preventDefault();
 
             $('#crudContainer').load('/admin/users', function() {
-                $.getScript("/js/admin/users-view.js");
+                $.getScript("/js/admin/forms/users-view.js");
             });
         }
     );
