@@ -1,4 +1,4 @@
-<h1>Category Categories</h1>
+<h1>Categories</h1>
 
 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#addCategoryContainer"
     aria-expanded="false" aria-controls="addUserContainer">New Category</button>
