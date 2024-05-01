@@ -1,12 +1,4 @@
 $(document).ready(function () {
-    $("#showAddUser").on("click", function (e) {
-        e.preventDefault();
-        $("#addUserContainer").load("/admin/addUser", function () {
-            console.log("click");
-            $.getScript("/js/admin/forms/addUser.js");
-        });
-    });
-
     refreshUserTable();
 
     $("#addUserForm").submit(function (e) {
@@ -64,8 +56,6 @@ $(document).ready(function () {
                 confirmPassword: $("#confirmPassword").val(),
                 super_user: $("#super_user").is(":checked") ? true : false,
             };
-
-            console.log(userData);
 
             $.ajax({
                 url: "/api/users",

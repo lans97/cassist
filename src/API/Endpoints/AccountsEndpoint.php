@@ -7,7 +7,7 @@ class AccountsEndpoint {
 
     public function __construct(\PDO $pdo) {
         $this->_pdo = $pdo;
-        $this->handler = new \App\API\Handlers\AccountsHandler($this->_pdo);
+        $this->_handler = new \App\API\Handlers\AccountsHandler($this->_pdo);
     }
 
     public function get() {
@@ -17,6 +17,20 @@ class AccountsEndpoint {
                 $response = [
                     "success" => true,
                     "data" => $account,
+                ];
+            } catch (\Exception $e) {
+                $response = [
+                    "success" => false,
+                    "error" => $e->getMessage()
+                ];
+            }
+            echo json_encode($response);
+        } elseif (isset($_GET['user-id'])) {
+            try {
+                $accounts = $this->_handler->get_accounts_by_user($_GET['user-id']);
+                $response = [
+                    "success" => true,
+                    "data" => $accounts,
                 ];
             } catch (\Exception $e) {
                 $response = [
@@ -45,11 +59,11 @@ class AccountsEndpoint {
     public function post() {
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
-            $newUser = $this->_handler->create_account($requestData);
-            $response = [
+            $this->_handler->create_account($requestData);
+            $response = array(
                 "success" => true,
                 "data" => "New account added",
-            ];
+            );
             echo json_encode($response);
         } catch (\Exception $e) {
             $response = array(

@@ -25,6 +25,20 @@ class CategoriesEndpoint {
                 ];
             }
             echo json_encode($response);
+        } elseif (isset($_GET["user-id"])) {
+            try {
+                $category = $this->_handler->get_categories_by_user($_GET['user-id']);
+                $response = [
+                    "success" => true,
+                    "data" => $category,
+                ];
+            } catch (\Exception $e) {
+                $response = [
+                    "success" => false,
+                    "error" => $e->getMessage()
+                ];
+            }
+            echo json_encode($response);
         } else {
             try {
                 $categories = $this->_handler->get_categories();

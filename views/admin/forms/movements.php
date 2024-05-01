@@ -1,6 +1,7 @@
 <h1>Movements</h1>
 
-<div id="addMovementContainer" style="display: none;">
+<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#addMovementContainer" aria-expanded="false" aria-controls="addUserContainer">New Movement</button>
+<div class="collapse" id="addMovementContainer">
     <form id="addMovementForm" class="needs-validation" novalidate>
         <div class="form-group">
             <label for="account">Account</label><br>
@@ -32,7 +33,7 @@
     </form>
 </div>
 
-<table class="movementsTable">
+<table class="table" id="movementsTable">
     <thead>
         <tr>
             <th>ID</th>
@@ -40,8 +41,9 @@
             <th>Category</th>
             <th>Info</th>
             <th>Ammount</th>
-            <th>Created_At</th>
-            <th>Updated_At</th>
+            <th>Created</th>
+            <th>Last Update</th>
+            <th>Actions</th>
         </tr>
     </thead>
 

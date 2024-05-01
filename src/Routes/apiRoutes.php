@@ -6,8 +6,20 @@ switch ($route) {
         echo '';
         break;
     case 'api/users':
-        $usersEndpoint = new \App\API\Endpoints\UsersEndpoint(getPDOConnection());
-        $usersEndpoint->handleUsersEndpoint();
+        $endpoint = new \App\API\Endpoints\UsersEndpoint(getPDOConnection());
+        $endpoint->handleUsersEndpoint();
+        break;
+    case 'api/accounts':
+        $endpoint = new \App\API\Endpoints\AccountsEndpoint(getPDOConnection());
+        $endpoint->handleAccountsEndpoint();
+        break;
+    case 'api/categories':
+        $endpoint = new \App\API\Endpoints\CategoriesEndpoint(getPDOConnection());
+        $endpoint->handleCategoriesEndpoint();
+        break;
+    case 'api/movements':
+        $endpoint = new \App\API\Endpoints\MovementsEndpoint(getPDOConnection());
+        $endpoint->handleMovementsEndpoint();
         break;
     default:
         http_response_code(404);

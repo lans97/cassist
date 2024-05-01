@@ -19,7 +19,7 @@ class CategoriesHandler {
                     `id`,
                     `name`,
                     `color`,
-                    `user`,
+                    `user`
                   FROM `movement_category`";
             $stmt = $this->_pdo->query($query);
             $categoriesData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -44,12 +44,12 @@ class CategoriesHandler {
                     `id`,
                     `name`,
                     `color`,
-                    `user`,
+                    `user`
                   FROM `movement_category`
                   WHERE `id` = :id";
             $stmt = $this->_pdo->prepare($query);
             $stmt->execute([':id' => $id]);
-            $categoryData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $categoryData = $stmt->fetch(\PDO::FETCH_ASSOC);
             if (empty($categoryData)) {
                 throw new \Exception('Category not found');
             }
@@ -60,10 +60,37 @@ class CategoriesHandler {
             throw new PDOException($th->getMessage());
         }
     }
+    
+    public function get_categories_by_user($id) {
+        try {
+            $query = "SELECT 
+                    `id`,
+                    `name`,
+                    `color`,
+                    `user`
+                  FROM `movement_category`
+                  WHERE `user` = :id";
+            $stmt = $this->_pdo->prepare($query);
+            $stmt->execute([':id' => $id]);
+            $categoriesData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if ($categoriesData === false) {
+                throw new \Exception('User has no categories');
+            }
+
+            $categories = [];
+            foreach ($categoriesData as $categoryData) {
+                $category = new \App\Models\Category($categoryData['id'], $categoryData['name'], $categoryData['color'], $categoryData['user']);
+                $categories[] = $category->to_array();
+            }
+            return $categories;
+        } catch (PDOException $th) {
+            throw new PDOException($th->getMessage());
+        }
+    }
 
     public function create_category($category) {
         try {
-            $query = "INSERT INTO `category`
+            $query = "INSERT INTO `movement_category`
                     (`name`,
                      `color`,
                      `user`)
@@ -88,16 +115,18 @@ class CategoriesHandler {
     public function update_category($category) {
         try {
             $this->get_category($category['id']);
-            $query = "UPDATE TABLE `category`
-                    `name` = :name,
-                    `color` = :color,
-                    `user` = :user
-                  WHERE `id` = :id";
+            $query = "UPDATE `movement_category`
+                      SET
+                        `name` = :name,
+                        `color` = :color,
+                        `user` = :user
+                      WHERE `id` = :id";
             $stmt = $this->_pdo->prepare($query);
             $stmt->execute([
                 ':name' => $category['name'],
                 ':color' => $category['color'],
-                ':user' => $category['user']
+                ':user' => $category['user'],
+                ':id' => $category['id'],
             ]);
 
             return $this->get_category($category['id']);
@@ -111,7 +140,7 @@ class CategoriesHandler {
     public function delete_category($id) {
         try {
             $this->get_category($id);
-            $query = "DELETE FROM `category`
+            $query = "DELETE FROM `movement_category`
                       WHERE `id` = :id";
             $stmt = $this->_pdo->prepare($query);
             $stmt->execute([":id" => $id]);

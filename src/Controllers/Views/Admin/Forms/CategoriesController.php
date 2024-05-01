@@ -1,8 +1,8 @@
 <?php namespace App\Controllers\Views\Admin\Forms;
 
-class MovementsController {
+class CategoriesController {
     public function index() {
-        include PROJECT_ROOT . "views/admin/forms/movements.php";
+        include PROJECT_ROOT . "views/admin/forms/categories.php";
     }
 
     public function handleCalls() {
@@ -15,5 +15,4 @@ class MovementsController {
                 echo 'Not Allowed';
         }
     }
-
 }

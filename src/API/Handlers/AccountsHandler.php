@@ -22,7 +22,9 @@ class AccountsHandler {
                   FROM `account`";
             $stmt = $this->_pdo->query($query);
             $accountsData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
+            if (empty($accountsData)) {
+                throw new \Exception('No accounts in database');
+            }
             $accounts = [];
             foreach ($accountsData as $accountData) {
                 $account = new \App\Models\Account($accountData['id'], $accountData['user'], $accountData['nickname'], $accountData['balance'], $accountData['created_at'], $accountData['updated_at']);
@@ -47,10 +49,40 @@ class AccountsHandler {
                   WHERE `id` = :id";
             $stmt = $this->_pdo->prepare($query);
             $stmt->execute([':id' => $id]);
-            $accountData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
+            $accountData = $stmt->fetch(\PDO::FETCH_ASSOC);
+            if (empty($accountData)) {
+                throw new \Exception('Account not found');
+            }
             $account = new \App\Models\Account($accountData['id'], $accountData['user'], $accountData['nickname'], $accountData['balance'], $accountData['created_at'], $accountData['updated_at']);
             return $account->to_array();
+        } catch (PDOException $th) {
+            throw new PDOException($th->getMessage());
+        }
+    }
+
+    public function get_accounts_by_user($id) {
+        try {
+            $query = "SELECT 
+                    `id`,
+                    `user`,
+                    `nickname`,
+                    `balance`,
+                    `created_at`,
+                    `updated_at`
+                  FROM `account`
+                  WHERE `user` = :id";
+            $stmt = $this->_pdo->prepare($query);
+            $stmt->execute([':id' => $id]);
+            $accountsData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if (empty($accountsData)) {
+                throw new \Exception('User has no accounts');
+            }
+            $accounts = [];
+            foreach ($accountsData as $accountData) {
+                $account = new \App\Models\Account($accountData['id'], $accountData['user'], $accountData['nickname'], $accountData['balance'], $accountData['created_at'], $accountData['updated_at']);
+                $accounts[] = $account->to_array();
+            }
+            return $accounts;
         } catch (PDOException $th) {
             throw new PDOException($th->getMessage());
         }
@@ -83,16 +115,18 @@ class AccountsHandler {
     public function update_account($account) {
         try {
             $this->get_account($account['id']);
-            $query = "UPDATE TABLE `account`
-                    `user` = :user,
-                    `nickname` = :nickname,
-                    `balance` = :balance
-                  WHERE `id` = :id";
+            $query = "UPDATE `account`
+                      SET
+                        `user` = :user,
+                        `nickname` = :nickname,
+                        `balance` = :balance
+                      WHERE `id` = :id";
             $stmt = $this->_pdo->prepare($query);
             $stmt->execute([
                 ':user' => $account['user'],
                 ':nickname' => $account['nickname'],
-                ':balance' => $account['balance']
+                ':balance' => $account['balance'],
+                ':id'=> $account['id']
             ]);
 
             return $this->get_account($account['id']);

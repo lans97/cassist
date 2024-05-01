@@ -18,10 +18,38 @@ class MovementsEndpoint {
                     "success" => true,
                     "data" => $movement,
                 ];
+                echo json_encode($response);
             } catch (\Exception $e) {
                 $response = [
                     "success" => false,
+                    "error" => $e->getMessage()
+                ];
+                echo json_encode($response);
+            }
+        } elseif (isset($_GET["account-id"])) {
+            try {
+                $movement = $this->_handler->get_movements_by_account($_GET['account-id']);
+                $response = [
+                    "success" => true,
                     "data" => $movement,
+                ];
+            } catch (\Exception $e) {
+                $response = [
+                    "success" => false,
+                    "error" => $e->getMessage()
+                ];
+            }
+            echo json_encode($response);
+        } elseif (isset($_GET["category-id"])) {
+            try {
+                $movement = $this->_handler->get_movements_by_category($_GET['category-id']);
+                $response = [
+                    "success" => true,
+                    "data" => $movement,
+                ];
+            } catch (\Exception $e) {
+                $response = [
+                    "success" => false,
                     "error" => $e->getMessage()
                 ];
             }
@@ -37,7 +65,6 @@ class MovementsEndpoint {
             } catch (\Exception $e) {
                 $response = [
                     "success" => false,
-                    "data" => $movements,
                     "error" => $e->getMessage()
                 ];
             }
@@ -48,9 +75,9 @@ class MovementsEndpoint {
     public function post() {
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
-            $newUser = $this->_handler->create_movement($requestData);
+            $this->_handler->create_movement($requestData);
             $response = array(
-                "success" => true,
+                "success" => "true",
                 "message" => "New movement added",
             );
             echo json_encode($response);

@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 
 CREATE TABLE IF NOT EXISTS `movement_category` (
     `id` INT AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL UNIQUE,
+    `name` VARCHAR(255) NOT NULL,
     `color` INT,
     `user` INT NOT NULL,
     PRIMARY KEY (`id`),
