@@ -1,6 +1,6 @@
 <h1>Accounts</h1>
 
-<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#addAccountContainer" aria-expanded="false" aria-controls="addUserContainer">New User</button>
+<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#addAccountContainer" aria-expanded="false" aria-controls="addUserContainer">New Account</button>
 <div class="collapse" id="addAccountContainer">
     <form id="addAccountForm" class="needs-validation" novalidate>
         <div class="form-group">
