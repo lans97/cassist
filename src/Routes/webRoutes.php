@@ -13,7 +13,7 @@ switch ($route) {
         $controller->handleCalls();
         break;
     case 'register':
-        $controller = new App\Controllers\Views\Forms\RegisterController();
+        $controller = new App\Controllers\Views\RegisterController();
         $controller->handleCalls();
         break;
     case 'about':

@@ -8,5 +8,5 @@
         <input type="password" class="form-control" id="password" name="password" required>
     </div>
     <br>
-    <button type="submit" class="btn btn-primary btn-block">Login</button>
+    <button type="submit" class="btn btn-secondary btn-block">Login</button>
 </form>
