@@ -14,10 +14,6 @@ class LoginController {
     }
 
     public function handleCalls() {
-        if (isset($_SESSION['token'])) {
-            header("Location: /home");
-            exit();
-        }
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 $this->index();

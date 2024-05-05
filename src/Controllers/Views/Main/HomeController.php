@@ -1,17 +1,15 @@
-<?php namespace App\Controllers\Views;
+<?php namespace App\Controllers\Views\Main;
 
 class HomeController {
     private function index() {
         $title = "Home";
-        $content = file_get_contents(PROJECT_ROOT . "views/main/home.php");
+        ob_start();
+        include (PROJECT_ROOT . "views/main/home.php");
+        $content = ob_get_clean();
         include (PROJECT_ROOT . "templates/base.php");
     }
 
     public function handleCalls() {
-        if (!isset($_SESSION['token'])){
-            header("Location: /");
-            exit();
-        }
         switch ($_SERVER['REQUEST_METHOD']){
             case 'GET':
                 $this->index();

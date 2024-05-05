@@ -9,7 +9,7 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MariaDB",
-            "name": "DockerTest",
+            "name": "docker",
             "database": "proyecto",
             "username": "root"
         }

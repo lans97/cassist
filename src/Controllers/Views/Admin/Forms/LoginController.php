@@ -20,14 +20,14 @@ class LoginController {
             if ($user['super_user'] == 1) {
                 $_SESSION["token"] = md5(uniqid(microtime(), true));
                 $_SESSION["username"] = $user['username'];
-                $_SESSION["user-id"] = $user['user-id'];
+                $_SESSION["user-id"] = $user['id'];
                 $_SESSION["admin"] = true;
                 header('Location: /admin/cruds');
                 exit();
             } else {
                 echo "<script>
                         alert('User is not admin. Redirecting...');
-                        window.location.href = '/admin/login';
+                        window.location.href = '/login';
                       </script>";
             }
         } catch (\Exception $e) {

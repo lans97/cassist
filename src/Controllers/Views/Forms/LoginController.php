@@ -19,7 +19,7 @@ class LoginController {
             $user = $handler->get_user($loginData);
             $_SESSION["token"] = md5(uniqid(microtime(), true));
             $_SESSION["username"] = $user['username'];
-            $_SESSION["user-id"] = $user['user-id'];
+            $_SESSION["user-id"] = $user['id'];
             header('Location: /home');
             exit();
         } catch (\Exception $e) {
@@ -39,10 +39,6 @@ class LoginController {
     }
 
     public function handleCalls() {
-        if (isset($_SESSION['token'])) {
-            header("Location: /admin/cruds");
-            exit();
-        }
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 $this->index();
