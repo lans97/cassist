@@ -63,7 +63,7 @@ class MovementsHandler {
             throw new PDOException($th->getMessage());
         }
     }
-    
+
     public function get_movements_by_account($id) {
         try {
             $query = "SELECT 
@@ -92,7 +92,7 @@ class MovementsHandler {
             throw new PDOException($th->getMessage());
         }
     }
-    
+
     public function get_movements_by_category($id) {
         try {
             $query = "SELECT 
@@ -105,6 +105,36 @@ class MovementsHandler {
                     `updated_at`
                   FROM `movement`
                   WHERE `category` = :id";
+            $stmt = $this->_pdo->prepare($query);
+            $stmt->execute([':id' => $id]);
+            $movementsData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if ($movementsData === false) {
+                throw new \Exception("No movements in database");
+            }
+            $movements = [];
+            foreach ($movementsData as $movementData) {
+                $movement = new \App\Models\Movement($movementData['id'], $movementData['account'], $movementData['category'], $movementData['info'], $movementData['ammount'], $movementData['created_at'], $movementData['updated_at']);
+                $movements[] = $movement->to_array();
+            }
+            return $movements;
+        } catch (PDOException $th) {
+            throw new PDOException($th->getMessage());
+        }
+    }
+
+    public function get_movements_by_user($id) {
+        try {
+            $query = "SELECT
+                        m.`id` as `id`,
+                        m.`account`,
+                        m.`category`,
+                        m.`info`,
+                        m.`ammount`,
+                        m.`created_at` as `created_at`,
+                        m.`updated_at` as `updated_at`
+                      FROM `movement` m LEFT JOIN `account`
+                      ON `account`.`id` = `account`
+                      WHERE `account`.`user` = :id;";
             $stmt = $this->_pdo->prepare($query);
             $stmt->execute([':id' => $id]);
             $movementsData = $stmt->fetchAll(\PDO::FETCH_ASSOC);

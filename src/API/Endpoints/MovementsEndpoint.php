@@ -4,12 +4,12 @@ namespace App\API\Endpoints;
 class MovementsEndpoint {
     private $_pdo;
     private $_handler;
-
+    
     public function __construct(\PDO $pdo) {
         $this->_pdo = $pdo;
         $this->_handler = new \App\API\Handlers\MovementsHandler($this->_pdo);
     }
-
+    
     public function get() {
         if (isset($_GET['movement-id'])) {
             try {
@@ -29,6 +29,20 @@ class MovementsEndpoint {
         } elseif (isset($_GET["account-id"])) {
             try {
                 $movement = $this->_handler->get_movements_by_account($_GET['account-id']);
+                $response = [
+                    "success" => true,
+                    "data" => $movement,
+                ];
+            } catch (\Exception $e) {
+                $response = [
+                    "success" => false,
+                    "error" => $e->getMessage()
+                ];
+            }
+            echo json_encode($response);
+        } elseif (isset($_GET["user-id"])) {
+            try {
+                $movement = $this->_handler->get_movements_by_user($_GET['user-id']);
                 $response = [
                     "success" => true,
                     "data" => $movement,
@@ -71,7 +85,7 @@ class MovementsEndpoint {
             echo json_encode($response);
         }
     }
-
+    
     public function post() {
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
@@ -95,7 +109,7 @@ class MovementsEndpoint {
             echo json_encode($response);
         }
     }
-
+    
     public function put() {
         try {
             $requestData = json_decode(file_get_contents('php://input'), true);
@@ -119,7 +133,7 @@ class MovementsEndpoint {
             echo json_encode($response);
         }
     }
-
+    
     public function delete() {
         try {
             $movementId = isset($_GET['movement-id']) ? $_GET['movement-id'] : null;
@@ -130,25 +144,25 @@ class MovementsEndpoint {
             echo json_encode(array('error' => $e->getMessage()));
         }
     }
-
+    
     public function handleMovementsEndpoint() {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 $this->get();
                 break;
-            case 'POST':
-                $this->post();
-                break;
-            case 'PUT':
-                $this->put();
-                break;
-            case 'DELETE':
-                $this->delete();
-                break;
-            default:
-                http_response_code(405);
-                echo json_encode(array('error' => 'Method Not Allowed'));
-                break;
-        }
-    }
-}
+                case 'POST':
+                    $this->post();
+                    break;
+                    case 'PUT':
+                        $this->put();
+                        break;
+                        case 'DELETE':
+                            $this->delete();
+                            break;
+                            default:
+                            http_response_code(405);
+                            echo json_encode(array('error' => 'Method Not Allowed'));
+                            break;
+                        }
+                    }
+                }

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Cassist</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -24,6 +24,9 @@
                 <?php } ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#"></a>
+                    </li>
                 <?php if (!isset($_SESSION['token'])) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
