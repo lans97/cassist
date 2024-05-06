@@ -25,7 +25,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#"></a>
+                        <a href="#">test</a>
                     </li>
                 <?php if (!isset($_SESSION['token'])) { ?>
                     <li class="nav-item">
