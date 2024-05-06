@@ -1,20 +1,5 @@
 $(document).ready(function () {
-    $.ajax({
-        url: "/api/movements",
-        method: "GET",
-        data: {
-            "user-id": $("#user-id").val(),
-        },
-        dataType: "json",
-        success: function (response) {
-            response.data.forEach((movement) => {
-                populateCard(movement.account, movement);
-            });
-        },
-        error: function (xhr, status, error) {
-            console.error(error);
-        },
-    });
+    refreshMovements();
 
     $.ajax({
         url: "/api/accounts",
@@ -95,6 +80,38 @@ $(document).ready(function () {
         } else {
             setSuccessFor($("#movement_sign"));
         }
+
+        if (!isValid) {
+            e.preventDefault();
+            e.stopPropagation();
+        } else {
+            ammountSign = $("#movement_sign").val() === "plus" ? 1 : -1;
+            movementData = {
+                account: $("#account").val(),
+                category: $("#category").val(),
+                info: $("#information").val(),
+                ammount: $("#ammount").val() * ammountSign,
+            };
+
+            $.ajax({
+                url: "api/movements",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(movementData),
+                dataType: "json",
+                success: function (response) {
+                    modifyAccountFunds(
+                        movementData.account,
+                        movementData.ammount
+                    );
+                    $("#addMovementForm")[0].reset();
+                    refreshMovements();
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occured. Please try again later.");
+                },
+            });
+        }
     });
 });
 
@@ -127,10 +144,10 @@ function setCardBorderColor(categoryId, card) {
 
 function populateCard(accountId, movement) {
     $.ajax({
-        url: '/api/accounts?account-id=' + accountId,
+        url: "/api/accounts?account-id=" + accountId,
         dataType: "json",
-        method: 'GET',
-        success: function(response) {
+        method: "GET",
+        success: function (response) {
             var accountName = response.data.nickname;
 
             var card = $('<div class="card mb-3 style="border-color"></div>');
@@ -139,22 +156,81 @@ function populateCard(accountId, movement) {
             var cardBody = $('<div class="card-body"></div>');
 
             // Add movement details to the card body
-            cardBody.append('<h5 class="card-title">' + accountName + '</h5>');
-            cardBody.append('<p class="card-text">Description: ' + movement.info + '</p>');
-            cardBody.append('<p class="card-text">Amount: ' + movement.ammount + '</p>');
-            cardBody.append('<p class="card-text">Date: ' + movement.created_at + '</p>');
+            cardBody.append('<h5 class="card-title">' + accountName + "</h5>");
+            cardBody.append(
+                '<p class="card-text">Description: ' + movement.info + "</p>"
+            );
+            cardBody.append(
+                '<p class="card-text">Amount: ' + movement.ammount + "</p>"
+            );
+            cardBody.append(
+                '<p class="card-text">Date: ' + movement.created_at + "</p>"
+            );
 
             // Append card body to the card
             card.append(cardBody);
 
             // Append the card to the main container
-            $('#mainContainer').append(card);
+            $("#mainContainer").prepend(card);
 
             // Set card border color based on category ID
             setCardBorderColor(movement.category, card);
         },
-        error: function(xhr, status, error) {
-            console.error('Error fetching account information:', error);
-        }
+        error: function (xhr, status, error) {
+            console.error("Error fetching account information:", error);
+        },
+    });
+}
+
+function refreshMovements() {
+    $.ajax({
+        url: "/api/movements",
+        method: "GET",
+        data: {
+            "user-id": $("#user-id").val(),
+        },
+        dataType: "json",
+        success: function (response) {
+            $("#mainContainer").html("");
+            response.data.forEach((movement) => {
+                populateCard(movement.account, movement);
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        },
+    });
+}
+
+function modifyAccountFunds(accountId, ammount) {
+    $.ajax({
+        url: "/api/accounts",
+        method: "GET",
+        data: {
+            "account-id": accountId,
+        },
+        dataType: "json",
+        success: function (response) {
+            let accountData = response.data;
+            let accountBalance = parseFloat(accountData.balance);
+            accountBalance += parseFloat(ammount);
+            accountData.balance = accountBalance;
+            console.log(accountData);
+            $.ajax({
+                url: "/api/accounts",
+                method: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(accountData),
+                success: function (response) {
+                    console.log("Balance updated");
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                },
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        },
     });
 }

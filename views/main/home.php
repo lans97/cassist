@@ -2,10 +2,6 @@
     <h2>Welcome <?= $_SESSION['username']; ?></h2>
     <input id="user-id" value="<?= $_SESSION['user-id'] ?>" hidden>
     <div class="row justify-content-center">
-        <div class="col-md-5 col0-xs-1" id="mainContainer">
-        </div>
-    </div>
-    <div class="row justify-content-center">
         <div class="col-md-5 col0-xs-1">
             <div class="text-center">
                 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse"
@@ -53,6 +49,11 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-5 col0-xs-1" id="mainContainer">
         </div>
     </div>
 
