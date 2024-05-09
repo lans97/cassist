@@ -9,7 +9,7 @@
                     aria-controls="addMovementContainer">New
                     Movement</button>
             </div>
-            <div class="collapse justify-content-center" id="addMovementContainer">
+            < class="collapse justify-content-center" id="addMovementContainer">
                 <form id="addMovementForm" class="needs-validation" novalidate>
                     <div class="form-group mb-3">
                         <label class="form-label" for="account">Account</label><br>
@@ -43,19 +43,30 @@
                         </select>
                         <div class="invalid-feedback">Please select an option</div>
                     </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="transferCheckbox">
+                        <label class="form-check-label" for="transferCheckbox">Transfer to another account</label>
+                    </div>
+                    <div class="form-group mb-3" id="transferAccountSelect" style="display: none;">
+                        <label class="form-label" for="transferAccount">Transfer to Account</label><br>
+                        <select class="form-select" name="transferAccount" id="transferAccount">
+                            <option value="" selected disabled>Select an account</option>
+                            <!-- Insert options in JS -->
+                        </select>
+                    </div>
                     <br>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-secondary">Add Movements</button>
+                        <button type="submit" class="btn btn-secondary">Add New Movement</button>
                     </div>
                 </form>
-            </div>
         </div>
     </div>
-    <br>
-    <div class="row justify-content-center">
-        <div class="col-md-5 col0-xs-1" id="mainContainer">
-        </div>
+</div>
+<br>
+<div class="row justify-content-center">
+    <div class="col-md-5 col0-xs-1" id="mainContainer">
     </div>
+</div>
 
 </div>
 

@@ -24,9 +24,6 @@
                 <?php } ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#">test</a>
-                    </li>
                 <?php if (!isset($_SESSION['token'])) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
