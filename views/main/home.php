@@ -9,7 +9,7 @@
                     aria-controls="addMovementContainer">New
                     Movement</button>
             </div>
-            < class="collapse justify-content-center" id="addMovementContainer">
+            <div class="collapse justify-content-center" id="addMovementContainer">
                 <form id="addMovementForm" class="needs-validation" novalidate>
                     <div class="form-group mb-3">
                         <label class="form-label" for="account">Account</label><br>
@@ -59,6 +59,7 @@
                         <button type="submit" class="btn btn-secondary">Add New Movement</button>
                     </div>
                 </form>
+            </div>
         </div>
     </div>
 </div>
