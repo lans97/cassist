@@ -44,10 +44,10 @@
                         <div class="invalid-feedback">Please select an option</div>
                     </div>
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="transferCheckbox">
+                        <input class="form-check-input" type="checkbox" id="transferCheckbox" checked>
                         <label class="form-check-label" for="transferCheckbox">Transfer to another account</label>
                     </div>
-                    <div class="form-group mb-3" id="transferAccountSelect" style="display: none;">
+                    <div class="form-group mb-3" id="transferAccountSelect">
                         <label class="form-label" for="transferAccount">Transfer to Account</label><br>
                         <select class="form-select" name="transferAccount" id="transferAccount">
                             <option value="" selected disabled>Select an account</option>
