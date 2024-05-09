@@ -56,12 +56,9 @@ $(document).ready(function () {
     });
     
     $("#transferCheckbox").on('change', function() {
-        console.log("change");
         if(this.checked) {
-            console.log("show");
             $('#transferAccountSelect').show();
         } else {
-            console.log("hide");
             $('#transferAccountSelect').hide();
         }
     });
@@ -107,6 +104,10 @@ $(document).ready(function () {
                 info: $("#information").val(),
                 ammount: $("#ammount").val() * ammountSign,
             };
+            
+            if ($("#transferCheckbox").val()) {
+                transferAccount = $("#transferAccount").val();
+            }
 
             $.ajax({
                 url: "api/movements",
@@ -118,6 +119,10 @@ $(document).ready(function () {
                     modifyAccountFunds(
                         movementData.account,
                         movementData.ammount
+                    );
+                    modifyAccountFunds(
+                        transferAccount,
+                        - movementData.ammount
                     );
                     $("#addMovementForm")[0].reset();
                     refreshMovements();
