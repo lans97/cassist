@@ -55,7 +55,8 @@ $(document).ready(function () {
         },
     });
     
-    $('#transferCheckbox').change(function() {
+    $("#transferCheckbox").change(function() {
+        console.log("change");
         if(this.checked) {
             console.log("show");
             $('#transferAccountSelect').show();
