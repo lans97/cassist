@@ -57,8 +57,10 @@ $(document).ready(function () {
     
     $('#transferCheckbox').change(function() {
         if(this.checked) {
+            console.log("show");
             $('#transferAccountSelect').show();
         } else {
+            console.log("hide");
             $('#transferAccountSelect').hide();
         }
     });
