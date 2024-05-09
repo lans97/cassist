@@ -55,7 +55,7 @@ $(document).ready(function () {
         },
     });
     
-    $("#transferCheckbox").change(function() {
+    $("#transferCheckbox").on('change', function() {
         console.log("change");
         if(this.checked) {
             console.log("show");
