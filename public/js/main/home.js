@@ -10,8 +10,12 @@ $(document).ready(function () {
         dataType: "json",
         success: function (response) {
             let select = $("#account");
+            let select2 = $("#transferAccount");
             response.data.forEach((account) => {
                 select.append(
+                    new Option(`${account.nickname}`, `${account.id}`)
+                );
+                select2.append(
                     new Option(`${account.nickname}`, `${account.id}`)
                 );
             });
@@ -49,6 +53,14 @@ $(document).ready(function () {
         error: function (xhr, status, error) {
             console.error(error);
         },
+    });
+    
+    $('#transferCheckbox').change(function() {
+        if(this.checked) {
+            $('#transferAccountSelect').show();
+        } else {
+            $('#transferAccountSelect').hide();
+        }
     });
 
     $("#addMovementForm").submit((e) => {
