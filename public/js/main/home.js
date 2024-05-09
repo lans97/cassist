@@ -54,12 +54,12 @@ $(document).ready(function () {
             console.error(error);
         },
     });
-    
-    $("#transferCheckbox").on('change', function() {
-        if(this.checked) {
-            $('#transferAccountSelect').show();
+
+    $("#transferCheckbox").on("change", function () {
+        if (this.checked) {
+            $("#transferAccountSelect").show();
         } else {
-            $('#transferAccountSelect').hide();
+            $("#transferAccountSelect").hide();
         }
     });
 
@@ -104,7 +104,7 @@ $(document).ready(function () {
                 info: $("#information").val(),
                 ammount: $("#ammount").val() * ammountSign,
             };
-            
+
             if ($("#transferCheckbox").val()) {
                 transferAccount = $("#transferAccount").val();
             }
@@ -120,10 +120,12 @@ $(document).ready(function () {
                         movementData.account,
                         movementData.ammount
                     );
-                    modifyAccountFunds(
-                        transferAccount,
-                        - movementData.ammount
-                    );
+                    if ($("#transferCheckbox").val()) {
+                        modifyAccountFunds(
+                            transferAccount,
+                            -movementData.ammount
+                        );
+                    }
                     $("#addMovementForm")[0].reset();
                     refreshMovements();
                 },
